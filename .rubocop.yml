@@ -1,0 +1,102 @@
+require: rubocop-performance
+
+AllCops:
+  DefaultFormatter: simple
+  NewCops: enable
+
+Layout/SpaceInsideStringInterpolation:
+  EnforcedStyle: no_space
+
+Lint/RedundantSplatExpansion:
+  Enabled: false
+
+Style/AsciiComments:
+  Enabled: false
+
+Style/Documentation:
+  Enabled: false
+
+Style/StringLiterals:
+  Enabled: true
+  EnforcedStyle: single_quotes
+
+Metrics/BlockNesting:
+  Enabled: false
+
+Metrics/ClassLength:
+  Enabled: false
+
+Metrics/ModuleLength:
+  Enabled: false
+
+Metrics/BlockLength:
+  Enabled: false
+
+Layout/LineLength:
+  Enabled: false
+
+Metrics/MethodLength:
+  Enabled: false
+
+Metrics/ParameterLists:
+  Enabled: false
+
+Naming/PredicateName:
+  Enabled: false
+
+Naming/VariableNumber:
+  Enabled: false
+
+Style/GlobalVars:
+  AllowedVariables:
+    - staging
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Style/FormatStringToken:
+  Enabled: false
+
+Style/ClassAndModuleChildren:
+  Enabled: false
+
+Style/DoubleNegation:
+  Enabled: false
+
+
+Style/AutoResourceCleanup:
+  Enabled: true
+
+Style/MultilineMethodSignature:
+  Enabled: true
+
+Style/ImplicitRuntimeError:
+  Enabled: false
+
+Style/MethodCalledOnDoEndBlock:
+  Enabled: false
+
+Style/StringConcatenation:
+  Enabled: false
+
+Style/OptionalBooleanParameter:
+  Enabled: false
+
+Lint/EmptyBlock:
+  Enabled: false
+
+Lint/ConstantDefinitionInBlock:
+  Enabled: false
+
+# Temp
+Metrics/AbcSize:
+  Enabled: false
+
+Metrics/CyclomaticComplexity:
+  Enabled: false
+
+Metrics/PerceivedComplexity:
+  Enabled: false
+
+Style/CaseLikeIf:
+  Enabled: false
