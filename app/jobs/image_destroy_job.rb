@@ -1,6 +1,4 @@
-class ImageDestroyJob
-  include Sidekiq::Worker
-
+class ImageDestroyJob < ActiveJob::Base
   def perform(attacher_class, data)
     attacher_class = Object.const_get(attacher_class)
 
