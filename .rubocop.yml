@@ -3,6 +3,8 @@ require: rubocop-performance
 AllCops:
   DefaultFormatter: simple
   NewCops: enable
+  Exclude:
+    - 'db/schema.rb'
 
 Layout/SpaceInsideStringInterpolation:
   EnforcedStyle: no_space

@@ -6,13 +6,14 @@ ruby '3.0.0'
 gem 'bootsnap', require: false
 gem 'dotenv'
 gem 'image_processing', '~> 1.8'
-gem 'jsonapi-serializer'
 gem 'jwt'
+gem 'multi_json'
 gem 'pagy'
 gem 'pg', '~> 1.1'
 gem 'puma', '~> 5.0'
 gem 'rails', '~> 7.0.2', '>= 7.0.2.3'
 gem 'redis', '~> 4.0'
+gem 'roar'
 gem 'rswag'
 gem 'sentry-rails'
 gem 'sentry-ruby'
@@ -22,13 +23,12 @@ gem 'sidekiq'
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 
 group :development, :test do
+  gem 'annotate'
   gem 'factory_bot'
   gem 'faker'
-  gem 'multi_json'
-  gem 'rubocop-rspec'
-  gem 'annotate'
   gem 'rubocop'
   gem 'rubocop-performance', require: false
+  gem 'rubocop-rspec'
 end
 
 group :test do
