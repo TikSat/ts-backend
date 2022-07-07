@@ -1,5 +1,4 @@
 class API::CategoriesController < ApplicationController
-
   def index
     @pagy, categories = pagy(Category.root)
     return unless stale?(categories)

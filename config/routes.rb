@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   mount Rswag::Api::Engine => '/api/docs'
 
   namespace :api, defaults: { format: 'json' } do
-    resources :categories, only: [:index, :show]
+    resources :categories, only: %i[index show]
 
     namespace :admin do
       resources :categories

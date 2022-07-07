@@ -10,7 +10,6 @@ Pagy::DEFAULT[:page]   = 1                                  # default
 Pagy::DEFAULT[:items]  = 20                                 # default
 Pagy::DEFAULT[:outset] = 0                                  # default
 
-
 # Other Variables
 # See https://ddnexus.github.io/pagy/api/pagy#other-variables
 # Pagy::DEFAULT[:size]       = [1,4,4,1]                       # default
@@ -22,10 +21,8 @@ Pagy::DEFAULT[:page_param] = :page # default
 # Pagy::DEFAULT[:i18n_key]   = 'pagy.item_name'                # default
 # Pagy::DEFAULT[:cycle]      = true                            # example
 
-
 # Extras
 # See https://ddnexus.github.io/pagy/extras
-
 
 # Backend Extras
 

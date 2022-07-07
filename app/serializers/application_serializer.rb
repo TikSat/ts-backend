@@ -4,7 +4,5 @@ class ApplicationSerializer
                 namespace: self.class.name.underscore.to_s,
                 expires_in: 1.hour
 
-  def resource
-    @resource
-  end
+  attr_reader :resource
 end
