@@ -3,9 +3,7 @@ class CategoryRepresenter < ApplicationRepresenter
   property :name
   property :desc
   property :parent_id
-
-  property :created_at
-  property :updated_at
+  property :slug
 
   collection :subcategories, decorator: CategoryRepresenter
 end
