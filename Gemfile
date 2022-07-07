@@ -15,6 +15,8 @@ gem 'puma', '~> 5.0'
 gem 'rails', '~> 7.0.2', '>= 7.0.2.3'
 gem 'redis', '~> 4.0'
 gem 'roar'
+gem 'rspec'
+gem 'rswag'
 gem 'sentry-rails'
 gem 'sentry-ruby'
 gem 'sentry-sidekiq'
@@ -26,14 +28,12 @@ group :development, :test do
   gem 'annotate'
   gem 'factory_bot'
   gem 'faker'
-  gem 'rswag'
   gem 'rubocop'
   gem 'rubocop-performance', require: false
   gem 'rubocop-rspec'
 end
 
 group :test do
-  gem 'rspec'
   gem 'rspec-rails'
   gem 'rspec-sidekiq'
   gem 'shoulda-matchers'
