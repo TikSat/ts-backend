@@ -1,17 +1,16 @@
 class API::CategoriesController < ApplicationController
   def index
-    @pagy, categories = pagy(Category.root)
+    categories = Category.includes(:subcategories,
+                                   { subcategories: :subcategories }).root
     return unless stale?(categories)
 
-    render json: CategorySerializer.new(categories)
-                                   .serializable_hash.to_json
+    present categories
   end
 
   def show
     category = Category.find(params[:id])
     return unless stale?(category)
 
-    render json: CategorySerializer.new(category)
-                                   .serializable_hash.to_json
+    present category
   end
 end
