@@ -4,6 +4,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '3.0.0'
 
 gem 'bootsnap', require: false
+gem 'dotenv'
 gem 'image_processing', '~> 1.8'
 gem 'jsonapi-serializer'
 gem 'jwt'
@@ -24,20 +25,20 @@ group :development, :test do
   gem 'factory_bot'
   gem 'faker'
   gem 'multi_json'
+  gem 'rubocop-rspec'
+  gem 'annotate'
+  gem 'rubocop'
+  gem 'rubocop-performance', require: false
+end
+
+group :test do
   gem 'rspec'
   gem 'rspec-rails'
   gem 'rspec-sidekiq'
-  gem 'rubocop-rspec'
   gem 'shoulda-matchers'
   gem 'simplecov'
   gem 'test-prof'
   gem 'timecop'
-end
-
-group :development do
-  gem 'annotate'
-  gem 'rubocop'
-  gem 'rubocop-performance', require: false
 end
 
 group :production do
