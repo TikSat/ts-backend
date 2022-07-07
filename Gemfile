@@ -5,6 +5,7 @@ ruby '3.0.0'
 
 gem 'bootsnap', require: false
 gem 'dotenv'
+gem 'friendly_id'
 gem 'image_processing', '~> 1.8'
 gem 'jwt'
 gem 'multi_json'
@@ -14,19 +15,18 @@ gem 'puma', '~> 5.0'
 gem 'rails', '~> 7.0.2', '>= 7.0.2.3'
 gem 'redis', '~> 4.0'
 gem 'roar'
-gem 'rswag'
 gem 'sentry-rails'
 gem 'sentry-ruby'
 gem 'sentry-sidekiq'
 gem 'shrine', github: 'shrinerb/shrine'
 gem 'sidekiq'
-gem 'friendly_id'
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 
 group :development, :test do
   gem 'annotate'
   gem 'factory_bot'
   gem 'faker'
+  gem 'rswag'
   gem 'rubocop'
   gem 'rubocop-performance', require: false
   gem 'rubocop-rspec'
