@@ -5,6 +5,7 @@ ruby '3.0.0'
 
 gem 'bootsnap', require: false
 gem 'dotenv'
+gem 'factory_bot' # move it to dev group after release
 gem 'friendly_id'
 gem 'image_processing', '~> 1.8'
 gem 'jwt'
@@ -26,7 +27,6 @@ gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 
 group :development, :test do
   gem 'annotate'
-  gem 'factory_bot'
   gem 'faker'
   gem 'rubocop'
   gem 'rubocop-performance', require: false
