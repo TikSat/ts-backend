@@ -1,0 +1,42 @@
+---
+openapi: 3.0.1
+info:
+  title: API V1
+  version: v1
+paths:
+  "/api/categories":
+    get:
+      summary: list categories
+      tags:
+      - Categories
+      parameters:
+      - name: page
+        in: query
+        description: Page for pagination
+        schema:
+          type: integer
+      - name: items
+        in: query
+        description: Number of items per page
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: successful
+  "/api/categories/{id}":
+    parameters:
+    - name: id
+      in: path
+      description: id
+      required: true
+      schema:
+        type: string
+    get:
+      summary: show category
+      tags:
+      - Categories
+      responses:
+        '200':
+          description: successful
+servers:
+- url: http://localhost:3000

@@ -5,3 +5,9 @@
 #
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
+FactoryBot.reload
+
+100.times do
+  cat = FactoryBot.create(:category)
+  FactoryBot.create_list(:category, 10, parent_id: cat.id)
+end
