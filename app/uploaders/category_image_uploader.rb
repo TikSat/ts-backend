@@ -12,10 +12,10 @@ class CategoryImageUploader < Shrine
   end
 
   Attacher.promote_block do
-    ImagePromoteJob.perform_async(self.class.name, record.class.name, record.id, name, file_data)
+    ImagePromoteJob.perform_later(self.class.name, record.class.name, record.id, name, file_data)
   end
 
   Attacher.destroy_block do
-    ImageDestroyJob.perform_async(self.class.name, data)
+    ImageDestroyJob.perform_later(self.class.name, data)
   end
 end
