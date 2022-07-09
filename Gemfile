@@ -25,6 +25,7 @@ gem 'sentry-sidekiq'
 gem 'shrine', github: 'shrinerb/shrine'
 gem 'sidekiq'
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
+gem 'fastimage'
 
 group :development, :test do
   gem 'annotate'
