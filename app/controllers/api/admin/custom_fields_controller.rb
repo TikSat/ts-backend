@@ -1,6 +1,6 @@
 class API::Admin::CustomFieldsController < API::Admin::BaseController
   def index
-    represent CustomField.all
+    present CustomField.all
   end
 
   def show
