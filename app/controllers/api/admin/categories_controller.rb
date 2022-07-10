@@ -1,4 +1,4 @@
-class API::Admin::CategoriesController < ApplicationController
+class API::Admin::CategoriesController < API::Admin::BaseController
   def index
     categories = Category.includes(:subcategories,
                                    { subcategories: :subcategories }).root

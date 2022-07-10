@@ -7,6 +7,7 @@ gem 'bootsnap', require: false
 gem 'dotenv'
 gem 'factory_bot' # move it to dev group after release
 gem 'faker' # move it to dev group after release
+gem 'fastimage'
 gem 'friendly_id'
 gem 'image_processing', '~> 1.8'
 gem 'jwt'
@@ -25,7 +26,6 @@ gem 'sentry-sidekiq'
 gem 'shrine', github: 'shrinerb/shrine'
 gem 'sidekiq'
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
-gem 'fastimage'
 
 group :development, :test do
   gem 'annotate'
