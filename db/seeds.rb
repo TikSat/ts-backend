@@ -10,4 +10,11 @@ FactoryBot.reload
 100.times do
   cat = FactoryBot.create(:category)
   FactoryBot.create_list(:category, 10, parent_id: cat.id)
+  fields = []
+  fields << FactoryBot.create(:text_field)
+  fields << FactoryBot.create(:numeric_field)
+  fields << FactoryBot.create(:checkbox_field)
+  fields << FactoryBot.create(:date_field)
+
+  cat.custom_fields << fields
 end

@@ -4,6 +4,45 @@ info:
   title: API V1
   version: v1
 paths:
+  "/api/admin/custom_fields":
+    get:
+      summary: list custom_fields
+      responses:
+        '200':
+          description: successful
+    post:
+      summary: create custom_field
+      responses:
+        '200':
+          description: successful
+  "/api/admin/custom_fields/{id}":
+    parameters:
+    - name: id
+      in: path
+      description: id
+      required: true
+      schema:
+        type: string
+    get:
+      summary: show custom_field
+      responses:
+        '200':
+          description: successful
+    patch:
+      summary: update custom_field
+      responses:
+        '200':
+          description: successful
+    put:
+      summary: update custom_field
+      responses:
+        '200':
+          description: successful
+    delete:
+      summary: delete custom_field
+      responses:
+        '200':
+          description: successful
   "/api/categories":
     get:
       summary: list categories

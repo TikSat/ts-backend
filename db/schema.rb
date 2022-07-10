@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_07_07_083830) do
+ActiveRecord::Schema[7.0].define(version: 2022_07_10_090127) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -21,6 +21,22 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_07_083830) do
     t.text "slug"
     t.jsonb "image_data"
     t.uuid "parent_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "category_custom_fields", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "category_id"
+    t.uuid "custom_field_id"
+    t.index ["category_id"], name: "index_category_custom_fields_on_category_id"
+    t.index ["custom_field_id"], name: "index_category_custom_fields_on_custom_field_id"
+  end
+
+  create_table "custom_fields", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "name"
+    t.text "desc"
+    t.jsonb "meta", default: {}
+    t.string "custom_field_type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

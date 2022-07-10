@@ -10,6 +10,7 @@ Rails.application.routes.draw do
 
     namespace :admin do
       resources :categories
+      resources :custom_fields
     end
   end
 end
