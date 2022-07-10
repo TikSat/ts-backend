@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_07_10_090127) do
+ActiveRecord::Schema[7.0].define(version: 2022_07_10_110227) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -39,6 +39,62 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_10_090127) do
     t.string "custom_field_type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "profiles", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "profile_type", default: "Profile::User"
+    t.string "name"
+    t.string "first_name"
+    t.string "last_name"
+    t.string "middle_name"
+    t.string "country"
+    t.string "city"
+    t.string "address_1"
+    t.string "address_2"
+    t.string "postal_code"
+    t.string "gender"
+    t.string "language"
+    t.string "currency"
+    t.string "time_zone"
+    t.jsonb "avatar_data"
+    t.jsonb "cover_data"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "user_profiles", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "user_id"
+    t.uuid "profile_id"
+    t.boolean "current", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["profile_id"], name: "index_user_profiles_on_profile_id"
+    t.index ["user_id", "profile_id"], name: "index_user_profiles_on_user_id_and_profile_id", unique: true
+    t.index ["user_id"], name: "index_user_profiles_on_user_id"
+  end
+
+  create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "email"
+    t.string "phone"
+    t.string "password"
+    t.datetime "last_login_at"
+    t.string "last_login_country"
+    t.inet "last_login_ip"
+    t.string "current_login_at"
+    t.string "current_login_country"
+    t.inet "current_login_ip"
+    t.integer "login_count"
+    t.inet "allowed_ips", default: [], array: true
+    t.string "confirmation_email_token"
+    t.string "confirmation_phone_token"
+    t.datetime "confirmed_email_at"
+    t.datetime "confirmed_phone_at"
+    t.boolean "opt_required", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["email", "phone"], name: "index_users_on_email_and_phone", unique: true
+    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["phone"], name: "index_users_on_phone", unique: true
   end
 
 end
