@@ -1,0 +1,2 @@
+class ProfileCoverUploader < ApplicationUploader
+end

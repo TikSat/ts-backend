@@ -9,7 +9,7 @@ FactoryBot.reload
 
 100.times do
   cat = FactoryBot.create(:category)
-  FactoryBot.create_list(:category, 10, parent_id: cat.id)
+  FactoryBot.create_list(:category, 2, parent_id: cat.id)
   fields = []
   fields << FactoryBot.create(:text_field)
   fields << FactoryBot.create(:numeric_field)
@@ -18,3 +18,5 @@ FactoryBot.reload
 
   cat.custom_fields << fields
 end
+
+FactoryBot.create(:user_with_profiles)
