@@ -1,0 +1,3 @@
+[submodule "ts-frontend"]
+	path = ts-frontend
+	url = git@github.com:TikSat/ts-frontend.git

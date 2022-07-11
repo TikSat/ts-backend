@@ -8,6 +8,7 @@ gem 'dotenv'
 gem 'factory_bot' # move it to dev group after release
 gem 'faker' # move it to dev group after release
 gem 'fastimage'
+gem 'foreman'
 gem 'friendly_id'
 gem 'image_processing', '~> 1.8'
 gem 'jwt'

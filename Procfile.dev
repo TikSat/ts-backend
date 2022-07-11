@@ -1,0 +1,3 @@
+backend: bundle exec puma -p 3001 -e development
+frontend: cd ts-frontend && yarn dev
+worker: bundle exec sidekiq -C config/sidekiq.yml
