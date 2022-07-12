@@ -8,6 +8,14 @@ Rails.application.routes.draw do
   namespace :api, defaults: { format: 'json' } do
     resources :categories, only: %i[index show]
 
+    get '/me', to: 'users#show'
+
+    resources :profiles do
+      member do
+        post 'toggle'
+      end
+    end
+
     namespace :admin do
       resources :categories
       resources :custom_fields

@@ -20,8 +20,7 @@ module Representation
 
     def representer_for(object)
       obj = object.is_a?(ActiveRecord::Relation) ? object.first : object
-      name = obj.class.name.demodulize
-      "#{name}Representer".constantize
+      "#{obj.class.name}Representer".constantize
     end
   end
 end

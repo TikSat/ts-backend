@@ -1,8 +1,8 @@
 require 'swagger_helper'
 
-RSpec.describe 'api/admin/custom_fields', type: :request do
-  path '/api/admin/custom_fields' do
-    get('list custom_fields') do
+RSpec.describe 'api/profiles', type: :request do
+  path '/api/profiles' do
+    get('list profiles') do
       response(200, 'successful') do
         after do |example|
           example.metadata[:response][:content] = {
@@ -15,7 +15,7 @@ RSpec.describe 'api/admin/custom_fields', type: :request do
       end
     end
 
-    post('create custom_field') do
+    post('create profile') do
       response(200, 'successful') do
         after do |example|
           example.metadata[:response][:content] = {
@@ -29,11 +29,11 @@ RSpec.describe 'api/admin/custom_fields', type: :request do
     end
   end
 
-  path '/api/admin/custom_fields/{id}' do
+  path '/api/profiles/{id}' do
     # You'll want to customize the parameter types...
     parameter name: 'id', in: :path, type: :string, description: 'id'
 
-    get('show custom_field') do
+    get('show profile') do
       response(200, 'successful') do
         let(:id) { '123' }
 
@@ -48,7 +48,7 @@ RSpec.describe 'api/admin/custom_fields', type: :request do
       end
     end
 
-    patch('update custom_field') do
+    patch('update profile') do
       response(200, 'successful') do
         let(:id) { '123' }
 
@@ -63,7 +63,7 @@ RSpec.describe 'api/admin/custom_fields', type: :request do
       end
     end
 
-    put('update custom_field') do
+    put('update profile') do
       response(200, 'successful') do
         let(:id) { '123' }
 
@@ -78,7 +78,7 @@ RSpec.describe 'api/admin/custom_fields', type: :request do
       end
     end
 
-    delete('delete custom_field') do
+    delete('delete profile') do
       response(200, 'successful') do
         let(:id) { '123' }
 
