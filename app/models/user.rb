@@ -33,4 +33,11 @@ class User < ApplicationRecord
   has_many :profiles, through: :user_profiles, source: :profile
   has_one :current_user_profile, -> { where(current: true) }, class_name: 'UserProfile'
   has_one :current_profile, through: :current_user_profile, source: :profile
+
+  def toggle_profile(profile)
+    User.transaction do
+      user_profiles.update_all(current: false)
+      user_profiles.where(profile: profile).update!(current: true)
+    end
+  end
 end

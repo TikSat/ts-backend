@@ -2,7 +2,7 @@ class API::Admin::CategoriesController < API::Admin::BaseController
   def index
     # TODO: fix N+1
     categories = Category.includes(:subcategories, :custom_fields,
-                                   { subcategories: [:subcategories, :custom_fields] }).root
+                                   { subcategories: %i[subcategories custom_fields] }).root
     return unless stale?(categories)
 
     present categories

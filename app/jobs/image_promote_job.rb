@@ -1,4 +1,4 @@
-class ImagePromoteJob < ActiveJob::Base
+class ImagePromoteJob < ApplicationJob
   def perform(attacher_class, record_class, record_id, name, file_data)
     attacher_class = Object.const_get(attacher_class)
     record         = Object.const_get(record_class).find(record_id) # if using Active Record
