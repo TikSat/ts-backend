@@ -4,7 +4,7 @@ class API::ProfilesController < ApplicationController
   end
 
   def show
-    present current_user.current_profile
+    present profile
   end
 
   def create
