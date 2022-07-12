@@ -1,4 +1,4 @@
-class ImageDestroyJob < ActiveJob::Base
+class ImageDestroyJob < ApplicationJob
   def perform(attacher_class, data)
     attacher_class = Object.const_get(attacher_class)
 
