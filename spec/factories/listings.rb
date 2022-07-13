@@ -22,7 +22,7 @@
 #
 FactoryBot.define do
   factory :listing do
-    association :profile
+    association :author, factory: :profile
     association :category
   end
 end
