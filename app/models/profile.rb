@@ -29,4 +29,5 @@ class Profile < ApplicationRecord
 
   has_many :user_profiles
   has_many :users, through: :user_profiles
+  has_many :listings, foreign_key: :author_id, dependent: :destroy
 end
