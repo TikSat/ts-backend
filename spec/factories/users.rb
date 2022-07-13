@@ -17,7 +17,7 @@
 #  last_login_ip            :inet
 #  login_count              :integer
 #  opt_required             :boolean          default(FALSE)
-#  password                 :string
+#  password_digest          :string
 #  phone                    :string
 #  created_at               :datetime         not null
 #  updated_at               :datetime         not null

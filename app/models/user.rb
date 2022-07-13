@@ -17,7 +17,7 @@
 #  last_login_ip            :inet
 #  login_count              :integer
 #  opt_required             :boolean          default(FALSE)
-#  password                 :string
+#  password_digest          :string
 #  phone                    :string
 #  created_at               :datetime         not null
 #  updated_at               :datetime         not null
@@ -29,6 +29,9 @@
 #  index_users_on_phone            (phone) UNIQUE
 #
 class User < ApplicationRecord
+  has_secure_password
+  api_guard_associations refresh_token: 'refresh_tokens'
+  has_many :refresh_tokens, dependent: :delete_all
   has_many :user_profiles
   has_many :profiles, through: :user_profiles, source: :profile
   has_one :current_user_profile, -> { where(current: true) }, class_name: 'UserProfile'
