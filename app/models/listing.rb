@@ -9,14 +9,14 @@
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
 #  category_id  :uuid
-#  profiles_id  :uuid
+#  profile_id  :uuid
 #
 # Indexes
 #
 #  index_listings_on_category_id  (category_id)
-#  index_listings_on_profiles_id  (profiles_id)
+#  index_listings_on_profile_id  (profiles_id)
 #
 class Listing < ApplicationRecord
   belongs_to :category
-  belongs_to :author, class_name: 'UserProfile', foreign_key: :profiles_id
+  belongs_to :author, class_name: 'Profile', foreign_key: :profile_id
 end
