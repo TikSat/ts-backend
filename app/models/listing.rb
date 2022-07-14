@@ -8,19 +8,15 @@
 #  field_values :jsonb
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
-#  author_id    :uuid
 #  category_id  :uuid
+#  profiles_id  :uuid
 #
 # Indexes
 #
-#  index_listings_on_author_id    (author_id)
 #  index_listings_on_category_id  (category_id)
-#
-# Foreign Keys
-#
-#  fk_rails_...  (author_id => user_profiles.id)
+#  index_listings_on_profiles_id  (profiles_id)
 #
 class Listing < ApplicationRecord
   belongs_to :category
-  belongs_to :author, class: 'UserProfile', foreign_key: :author_id
+  belongs_to :author, class: 'UserProfile', foreign_key: :profiles_id
 end
