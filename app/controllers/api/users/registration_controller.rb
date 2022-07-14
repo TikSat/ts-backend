@@ -1,4 +1,4 @@
-class API::Users::RegistrationController < ApplicationController
+class Api::Users::RegistrationController < ApplicationController
   skip_before_action :authenticate_resource
 
   def create

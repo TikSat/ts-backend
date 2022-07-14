@@ -1,4 +1,4 @@
-class API::CategoriesController < ApplicationController
+class Api::CategoriesController < ApplicationController
   skip_before_action :authenticate_resource
 
   def index

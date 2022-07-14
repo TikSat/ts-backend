@@ -1,4 +1,4 @@
-class API::Admin::CategoriesController < API::Admin::BaseController
+class Api::Admin::CategoriesController < Api::Admin::BaseController
   def index
     # TODO: fix N+1
     categories = Category.includes(:subcategories, :custom_fields,

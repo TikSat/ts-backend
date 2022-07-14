@@ -1,4 +1,4 @@
-class API::Admin::CustomFieldsController < API::Admin::BaseController
+class Api::Admin::CustomFieldsController < Api::Admin::BaseController
   def index
     present CustomField.all
   end
