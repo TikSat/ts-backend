@@ -28,6 +28,11 @@ jobs:
           POSTGRES_DB: myapp_test
           POSTGRES_PASSWORD: ""
         ports: ["5432:5432"]
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
 
       redis:
         image: redis
@@ -46,10 +51,11 @@ jobs:
           bundler-cache: true
       - name: Setup test database
         env:
+          DATABASE_URL: postgres://postgres:@localhost:5432/test
+          REDIS_URL: redis://localhost:6379/0
           RAILS_ENV: test
-          PGHOST: localhost
-          PGUSER: myapp
-        run: bin/rails db:setup
+          RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
+        run: bin/rails db:prepare
 
       - name: Run tests
         run: bundle exec rspec
