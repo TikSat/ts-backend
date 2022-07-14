@@ -1,11 +1,5 @@
 name: Verify
-on:
-  push:
-    branches:
-      - '*'
-  pull_request:
-    branches:
-      - master
+on: [push]
 
 jobs:
   linters:
@@ -28,7 +22,7 @@ jobs:
     runs-on: ubuntu-latest
     services:
       postgres:
-        image: postgres:12
+        image: postgres:13
         env:
           POSTGRES_USER: myapp
           POSTGRES_DB: myapp_test
