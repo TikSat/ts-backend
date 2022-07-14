@@ -18,5 +18,5 @@
 #
 class Listing < ApplicationRecord
   belongs_to :category
-  belongs_to :author, class: 'UserProfile', foreign_key: :profiles_id
+  belongs_to :author, class_name: 'UserProfile', foreign_key: :profiles_id
 end
