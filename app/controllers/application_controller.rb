@@ -1,7 +1,8 @@
 class ApplicationController < ActionController::API
   include Pagy::Backend
   include Representation
-  before_action :authenticate_resource
+  # rewrite test
+  before_action :authenticate_resource, unless: -> { Rails.env.test? }
 
   alias current_user current_resource
 
