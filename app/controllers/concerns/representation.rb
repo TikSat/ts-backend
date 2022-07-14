@@ -20,7 +20,11 @@ module Representation
 
     def representer_for(object)
       obj = object.is_a?(ActiveRecord::Relation) ? object.first : object
-      "#{obj.class.name}Representer".constantize
+
+      from_class = "#{obj.class.name}Representer"
+      from_controller = "#{controller_name.singularize}_representer".camelize
+
+      from_class.safe_constantize || from_controller.safe_constantize
     end
   end
 end

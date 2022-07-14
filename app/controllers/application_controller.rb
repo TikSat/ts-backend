@@ -1,8 +1,11 @@
 class ApplicationController < ActionController::API
   include Pagy::Backend
   include Representation
+  before_action :authenticate_resource
 
-  def current_user
-    @current_user = User.last
+  alias current_user current_resource
+
+  def authenticate_resource
+    authenticate_and_set_user
   end
 end

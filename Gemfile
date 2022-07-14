@@ -3,6 +3,8 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '3.0.0'
 
+gem 'api_guard'
+gem 'bcrypt'
 gem 'bootsnap', require: false
 gem 'dotenv'
 gem 'factory_bot' # move it to dev group after release

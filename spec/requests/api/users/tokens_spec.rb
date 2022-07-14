@@ -1,8 +1,8 @@
 require 'swagger_helper'
 
-RSpec.describe 'api/users', type: :request do
-  path '/api/me' do
-    get('show user') do
+RSpec.describe 'api/users/tokens', type: :request do
+  path '/api/users/tokens' do
+    post('create token') do
       tags 'Users'
       response(200, 'successful') do
         after do |example|

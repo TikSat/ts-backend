@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_07_10_110227) do
+ActiveRecord::Schema[7.0].define(version: 2022_07_13_085821) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -62,6 +62,16 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_10_110227) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "refresh_tokens", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "token"
+    t.uuid "user_id", null: false
+    t.datetime "expire_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["token"], name: "index_refresh_tokens_on_token", unique: true
+    t.index ["user_id"], name: "index_refresh_tokens_on_user_id"
+  end
+
   create_table "user_profiles", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "user_id"
     t.uuid "profile_id"
@@ -76,7 +86,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_10_110227) do
   create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "email"
     t.string "phone"
-    t.string "password"
+    t.string "password_digest"
     t.datetime "last_login_at"
     t.string "last_login_country"
     t.inet "last_login_ip"
@@ -97,4 +107,5 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_10_110227) do
     t.index ["phone"], name: "index_users_on_phone", unique: true
   end
 
+  add_foreign_key "refresh_tokens", "users"
 end
