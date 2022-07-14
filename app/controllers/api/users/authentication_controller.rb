@@ -1,6 +1,6 @@
 class API::Users::AuthenticationController < ApplicationController
   before_action :find_resource, only: [:create]
-  before_action :authenticate_resource, only: [:destroy]
+  skip_before_action :authenticate_resource, only: [:create]
 
   def create
     if resource.authenticate(params[:password])

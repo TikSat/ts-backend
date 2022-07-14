@@ -1,6 +1,4 @@
 class API::Users::PasswordsController < ApplicationController
-  before_action :authenticate_resource, only: [:update]
-
   def update
     invalidate_old_jwt_tokens(current_resource)
 

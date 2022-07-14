@@ -1,6 +1,4 @@
 class API::ProfilesController < ApplicationController
-  before_action :authenticate_resource
-
   def index
     present current_user.profiles
   end
