@@ -26,7 +26,15 @@ RSpec.configure do |config|
         {
           url: 'http://localhost:3000'
         }
-      ]
+      ],
+      securityDefinitions: {
+        Bearer: {
+          description: 'Auth token',
+          type: :apiKey,
+          name: 'Authorization',
+          in: :header
+        }
+      }
     }
   }
 
