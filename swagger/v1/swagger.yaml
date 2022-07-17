@@ -77,6 +77,58 @@ paths:
       responses:
         '200':
           description: successful
+  "/api/categories/{category_id}/listings":
+    parameters:
+    - name: category_id
+      in: path
+      description: category_id
+      required: true
+      schema:
+        type: string
+    get:
+      summary: list listings
+      responses:
+        '200':
+          description: successful
+    post:
+      summary: create listing
+      responses:
+        '200':
+          description: successful
+  "/api/categories/{category_id}/listings/{id}":
+    parameters:
+    - name: category_id
+      in: path
+      description: category_id
+      required: true
+      schema:
+        type: string
+    - name: id
+      in: path
+      description: id
+      required: true
+      schema:
+        type: string
+    get:
+      summary: show listing
+      responses:
+        '200':
+          description: successful
+    patch:
+      summary: update listing
+      responses:
+        '200':
+          description: successful
+    put:
+      summary: update listing
+      responses:
+        '200':
+          description: successful
+    delete:
+      summary: delete listing
+      responses:
+        '200':
+          description: successful
   "/api/profiles/{id}/toggle":
     parameters:
     - name: id

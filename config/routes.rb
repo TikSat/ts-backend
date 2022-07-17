@@ -6,7 +6,9 @@ Rails.application.routes.draw do
   mount Rswag::Api::Engine => '/api/docs'
 
   namespace :api, defaults: { format: 'json' } do
-    resources :categories, only: %i[index show]
+    resources :categories, only: %i[index show] do
+      resources :listings
+    end
 
     api_guard_routes for: 'users', controller: {
       registration: 'users/registration',
