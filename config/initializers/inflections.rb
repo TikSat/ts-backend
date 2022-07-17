@@ -12,5 +12,4 @@
 
 ActiveSupport::Inflector.inflections(:en) do |inflect|
   inflect.acronym 'JSONAPI'
-  inflect.acronym 'API'
 end

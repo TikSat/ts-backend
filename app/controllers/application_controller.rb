@@ -8,4 +8,8 @@ class ApplicationController < ActionController::API
   def authenticate_resource
     authenticate_and_set_user
   end
+
+  def current_profile
+    current_user.current_profile
+  end
 end

@@ -17,6 +17,7 @@ gem 'jwt'
 gem 'multi_json'
 gem 'pagy'
 gem 'pg', '~> 1.1'
+gem 'pg_search'
 gem 'puma', '~> 5.0'
 gem 'rails', '~> 7.0.2', '>= 7.0.2.3'
 gem 'redis', '~> 4.0'
@@ -29,7 +30,6 @@ gem 'sentry-sidekiq'
 gem 'shrine', github: 'shrinerb/shrine'
 gem 'sidekiq'
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
-gem 'pg_search'
 
 group :development, :test do
   gem 'annotate'

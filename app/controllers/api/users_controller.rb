@@ -1,4 +1,4 @@
-class API::UsersController < ApplicationController
+class Api::UsersController < ApplicationController
   def show
     present current_user
   end

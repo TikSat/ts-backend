@@ -1,4 +1,4 @@
-class API::ProfilesController < ApplicationController
+class Api::ProfilesController < ApplicationController
   def index
     present current_user.profiles
   end
