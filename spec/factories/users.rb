@@ -32,6 +32,7 @@ FactoryBot.define do
   factory :user do
     email { Faker::Internet.username + Faker::Internet.email }
     phone { Faker::PhoneNumber.phone_number }
+    password { SecureRandom.uuid }
   end
 
   factory :user_with_profiles, parent: :user do

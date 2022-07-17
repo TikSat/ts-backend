@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_07_13_085821) do
+ActiveRecord::Schema[7.0].define(version: 2022_07_17_091410) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -39,6 +39,22 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_13_085821) do
     t.string "custom_field_type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "listings", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "category_id"
+    t.uuid "profile_id"
+    t.string "title"
+    t.text "desc"
+    t.jsonb "field_values", default: {}
+    t.boolean "active", default: true, null: false
+    t.datetime "expires_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index "(((field_values ->> 'field_id'::text))::uuid)", name: "idx_field_values"
+    t.index ["category_id"], name: "index_listings_on_category_id"
+    t.index ["profile_id"], name: "index_listings_on_profile_id"
+    t.index ["title"], name: "index_listings_on_title"
   end
 
   create_table "profiles", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
