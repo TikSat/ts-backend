@@ -5,6 +5,7 @@ class ListingRepresenter < ApplicationRepresenter
   property :field_values
   property :expires_at
   property :author, decorator: ->(decorator:, input:, **) { decorator.representer_for(input) }
+  property :category
 
   collection :custom_fields, decorator: CustomFieldRepresenter
 

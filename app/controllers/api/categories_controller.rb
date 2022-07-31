@@ -2,8 +2,7 @@ class Api::CategoriesController < ApplicationController
   skip_before_action :authenticate_resource
 
   def index
-    categories = Category.includes(:subcategories,
-                                   { subcategories: :subcategories }).root
+    categories = Category.root
     return unless stale?(categories)
 
     present categories
