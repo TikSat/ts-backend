@@ -12,7 +12,7 @@ ENV LOG_LEVEL info
 ENV PROJECT_ROOT /app
 
 ENV POSTGRES_HOST postgres
-ENV POSTGRES_URL=postgres://postgres:postgres@$POSTGRES_HOST:5432/postgres
+ENV DATABASE_URL=postgres://postgres:postgres@$POSTGRES_HOST:5432/postgres
 
 ##
 # Prepare system dependencies

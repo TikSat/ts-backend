@@ -1,0 +1,85 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ $.Values.appType }}-default-env
+data: {}
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: "{{ $.Values.appType }}-${{ $.Values.branch }}"
+  labels:
+    service: "{{ $.Values.appType }}-${{ $.Values.branch }}"
+spec:
+  replicas: 2
+  strategy:
+    rollingUpdate:
+      maxUnavailable: 1
+  minReadySeconds: 15
+  selector:
+    matchLabels:
+      service: "{{ $.Values.appType }}-${{ $.Values.branch }}"
+  template:
+    metadata:
+      labels:
+        service: "{{ $.Values.appType }}-${{ $.Values.branch }}"
+        appType: "{{ $.Values.appType }}"
+    spec:
+      containers:
+        - name: service
+          image: "{{ $.Values.image }}"
+          livenessProbe:
+            exec:
+              command:
+                - "/bin/sh"
+                - "/app/bin/liveness.sh"
+            initialDelaySeconds: 30
+            periodSeconds: 30
+            timeoutSeconds: 30
+          readinessProbe:
+            exec:
+              command:
+                - "/bin/sh"
+                - "/app/bin/readiness.sh"
+            initialDelaySeconds: 30
+            periodSeconds: 30
+            timeoutSeconds: 30
+          ports:
+            - name: "http"
+              containerPort: 3000
+          env:
+            - name: RUN_ENV
+              value: "{{ $.Values.branch }}"
+            - name: DB_NAME
+              value: "backend-{{ $.Values.branch }}"
+          envFrom:
+            - configMapRef:
+                name: {{ $.Values.appType }}-default-env
+                optional: false
+            - secretRef:
+                name: {{ $.Values.appType }}-env
+                optional: false
+          resources:
+            requests:
+              memory: "2048Mi"
+              cpu: "1000m"
+              ephemeral-storage: "256Mi"
+            limits:
+              memory: "3072Mi"
+              cpu: "2000m"
+              ephemeral-storage: "256Mi"
+
+---
+apiVersion: 'v1'
+kind: 'Service'
+metadata:
+  name: "{{ $.Values.appType }}-${{ $.Values.branch }}"
+spec:
+  type: ClusterIP
+  selector:
+    service: "{{ $.Values.appType }}-${{ $.Values.branch }}"
+  ports:
+    - port: 80
+      targetPort: 3000

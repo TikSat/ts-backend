@@ -1,0 +1,30 @@
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: "{{ $.Values.appType }}-${{ $.Values.branch }}-retry"
+  namespace: "apps"
+spec:
+  retry:
+    attempts: 10
+    initialInterval: 100ms
+
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: "{{ $.Values.appType }}-${{ $.Values.branch }}"
+  namespace: "apps"
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`{{ $.Values.branch }}.{{ $.Values.domain }}`)
+      middlewares:
+        - name: "{{ $.Values.appType }}-${{ $.Values.branch }}-retry"
+      kind: Rule
+      services:
+        - name: "{{ $.Values.appType }}-${{ $.Values.branch }}"
+          port: 80
+  tls:
+    certResolver: main-le

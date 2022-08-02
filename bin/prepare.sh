@@ -20,6 +20,7 @@ until nc -z "$POSTGRES_HOST" 5432; do
 done
 
 echo 'Preparing Backend'
+bundle exec rake db:create
 bundle exec rake db:migrate
 
 # Run original command
