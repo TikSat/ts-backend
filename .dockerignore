@@ -1,0 +1,21 @@
+.git
+.env*
+.DS_Store
+.idea
+.vscode
+.history
+
+# Ignore all logfiles and tempfiles.
+/log/*
+/tmp/*
+!/log/.keep
+!/tmp/.keep
+
+/coverage
+/vendor
+
+docker
+
+.byebug_history
+.ruby-gemset
+.ruby-version
