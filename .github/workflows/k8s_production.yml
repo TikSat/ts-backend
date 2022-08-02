@@ -1,0 +1,61 @@
+name: k8s_deploy_production
+
+on:
+  push:
+    branches:
+      - TS-26-add-github-actions
+      - master
+
+jobs:
+  build_and_deploy:
+    runs-on: ubuntu-latest
+    env:
+      # Bot environment. Supported: apps
+      namespace: apps
+
+      docker_repo: registry.digitalocean.com/tiksat-main-k8s
+      docker_repo_name: apps
+      suffix: ''
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 3
+      - name: Set environment variables
+        run: |
+          # Short name for current branch. For PRs, use target branch (base ref)
+          GIT_BRANCH=${GITHUB_BASE_REF:-${GITHUB_REF#refs/heads/}}
+          GIT_BRANCH=${GIT_BRANCH//\//-} # Replace / with -
+          GIT_BRANCH=${GIT_BRANCH//_/-} # Replace _ with -
+          echo "GIT_BRANCH=$GIT_BRANCH" >> $GITHUB_ENV
+      - name: Install doctl
+        uses: digitalocean/action-doctl@v2
+        with:
+          token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+      #- name: Create Sentry release
+      #  uses: getsentry/action-release@v1
+      #  env:
+      #    SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+      #    SENTRY_ORG: wowswap-io
+      #    SENTRY_PROJECT: ${{ github.event.repository.name }}
+      #    SENTRY_URL: https://sentry.tech.wow.ceo/
+      #  with:
+      #    environment: ${{ env.namespace }}
+      #    version: ${{ github.sha }}
+      #    ignore_missing: true
+      - name: Build & Deploy
+        shell: bash
+        run: |
+          doctl registry login
+          doctl kubernetes cluster kubeconfig save main
+
+          docker build --secret id=npmrc,src=$HOME/.npmrc --tag $REPO_IMAGE --build-arg SENTRY_RELEASE=${{ github.sha }} .
+          docker push $REPO_IMAGE
+
+          if helm status apps-${{ github.event.repository.name }}${{ env.suffix }}-${{ env.namespace }} --namespace ${{ env.namespace }}; then 
+            helm upgrade apps-${{ github.event.repository.name }}${{ env.suffix }}-${{ env.namespace }} ./.helm --namespace ${{ env.namespace }} --set image=$REPO_IMAGE --set branch=$GIT_BRANCH --wait
+          else 
+            helm install apps-${{ github.event.repository.name }}${{ env.suffix }}-${{ env.namespace }} ./.helm --namespace ${{ env.namespace }} --set image=$REPO_IMAGE --set branch=$GIT_BRANCH --wait
+          fi
+        env:
+          REPO_IMAGE: ${{ env.docker_repo }}/${{ env.docker_repo_name }}:${{ github.event.repository.name }}${{ env.suffix }}-${{ env.namespace }}-${{ github.sha }}
