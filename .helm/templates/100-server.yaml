@@ -9,9 +9,9 @@ data: {}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: "{{ $.Values.appType }}-${{ $.Values.branch }}"
+  name: "{{ $.Values.appType }}-{{ $.Values.branch }}"
   labels:
-    service: "{{ $.Values.appType }}-${{ $.Values.branch }}"
+    service: "{{ $.Values.appType }}-{{ $.Values.branch }}"
 spec:
   replicas: 2
   strategy:
@@ -20,11 +20,11 @@ spec:
   minReadySeconds: 15
   selector:
     matchLabels:
-      service: "{{ $.Values.appType }}-${{ $.Values.branch }}"
+      service: "{{ $.Values.appType }}-{{ $.Values.branch }}"
   template:
     metadata:
       labels:
-        service: "{{ $.Values.appType }}-${{ $.Values.branch }}"
+        service: "{{ $.Values.appType }}-{{ $.Values.branch }}"
         appType: "{{ $.Values.appType }}"
     spec:
       containers:
@@ -75,11 +75,11 @@ spec:
 apiVersion: 'v1'
 kind: 'Service'
 metadata:
-  name: "{{ $.Values.appType }}-${{ $.Values.branch }}"
+  name: "{{ $.Values.appType }}-{{ $.Values.branch }}"
 spec:
   type: ClusterIP
   selector:
-    service: "{{ $.Values.appType }}-${{ $.Values.branch }}"
+    service: "{{ $.Values.appType }}-{{ $.Values.branch }}"
   ports:
     - port: 80
       targetPort: 3000

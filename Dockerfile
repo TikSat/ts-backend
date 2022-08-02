@@ -82,6 +82,9 @@ COPY --chown=1000:1000 ./ /app
 
 USER 1000
 
+ARG SENTRY_RELEASE=none
+ENV SENTRY_RELEASE $SENTRY_RELEASE
+
 VOLUME /app/public/system /app/log
 
 HEALTHCHECK --interval=15s CMD bash -c '/app/bin/liveliness.sh && /app/bin/readiness.sh'
