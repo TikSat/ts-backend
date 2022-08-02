@@ -12,10 +12,8 @@ jobs:
       - name: Setup Ruby and install gems
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: 3.0.0
+          ruby-version: '.ruby-version'
           bundler-cache: true
-      - name: Run linters
-        run: bundle exec rubocop -P
 
   tests:
     name: Tests
@@ -47,7 +45,7 @@ jobs:
       - name: Setup Ruby and install gems
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: 3.0.0
+          ruby-version: '.ruby-version'
           bundler-cache: true
       - name: Setup test database
         env:
@@ -57,10 +55,10 @@ jobs:
           RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
         run: bin/rails db:create db:migrate
 
-      - name: Run tests
-        env:
-          DATABASE_URL: postgres://postgres:@localhost:5432/test
-          REDIS_URL: redis://localhost:6379/0
-          RAILS_ENV: test
-          RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
-        run: bundle exec rspec
+#       - name: Run tests
+#         env:
+#           DATABASE_URL: postgres://postgres:@localhost:5432/test
+#           REDIS_URL: redis://localhost:6379/0
+#           RAILS_ENV: test
+#           RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
+#         run: bundle exec rspec

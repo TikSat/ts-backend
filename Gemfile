@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '3.0.0'
+ruby '3.0.4'
 
 gem 'api_guard'
 gem 'bcrypt'
@@ -30,8 +30,9 @@ gem 'shrine', github: 'shrinerb/shrine'
 gem 'sidekiq'
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 
+gem 'annotate'
+
 group :development, :test do
-  gem 'annotate'
   gem 'rubocop'
   gem 'rubocop-performance', require: false
   gem 'rubocop-rspec'
