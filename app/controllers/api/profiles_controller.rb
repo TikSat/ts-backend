@@ -1,24 +1,24 @@
 class Api::ProfilesController < ApplicationController
   def index
-    present current_user.profiles
+    return if stale?(scope)
+
+    present scope
   end
 
   def show
-    present profile
+    present model
   end
 
   def create
-    profile = current_user.profiles.create(profile_params)
-    present profile
+    present run(Profile::Operation::Create)[:model]
   end
 
   def update
-    profile.update(profile_params)
-    present profile
+    present run(Profile::Operation::Update)[:model]
   end
 
   def destroy
-    profile.destroy
+    model.destroy
     head :ok
   end
 
@@ -31,6 +31,14 @@ class Api::ProfilesController < ApplicationController
 
   def profile_params
     params.permit(:name, :first_name, :last_name, :middle_name, :gender, :language, :profile_type, :avatar, :cover, :country, :city, :address_1, :address_2, :postal_code, :currency)
+  end
+
+  def scope
+    @scope ||= fetch_scope(Profile::Fetch)
+  end
+
+  def model
+    @model ||= scope.find(params[:id])
   end
 
   def profile

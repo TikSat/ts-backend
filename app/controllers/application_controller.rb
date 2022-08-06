@@ -10,6 +10,19 @@ class ApplicationController < ActionController::API
   end
 
   def current_profile
-    current_user.current_profile
+    current_user&.current_profile
+  end
+
+  private
+
+  def _run_options(options)
+    options.merge(
+      current_user: current_user,
+      current_profile: current_profile
+    )
+  end
+
+  def fetch_scope(operation)
+    run(operation)[:scope]
   end
 end
