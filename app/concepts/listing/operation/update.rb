@@ -1,4 +1,4 @@
-class Listing::Operation::Update
+class Listing::Operation::Update < Base::Operation
   step :find_model
   step Contract::Build()
   step Contract::Validate()

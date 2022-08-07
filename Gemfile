@@ -1,8 +1,6 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '3.0.0'
-
 gem 'api_guard'
 gem 'bcrypt'
 gem 'bootsnap', require: false
@@ -30,7 +28,7 @@ gem 'sentry-ruby'
 gem 'sentry-sidekiq'
 gem 'shrine', github: 'shrinerb/shrine'
 gem 'sidekiq'
-gem "trailblazer-rails"
+gem 'trailblazer-rails'
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 
 group :development, :test do

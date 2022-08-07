@@ -1,4 +1,4 @@
-class Listing::Operation::Create
+class Listing::Operation::Create < Base::Operation
   step :build_model
   step Contract::Build()
   step Contract::Validate()

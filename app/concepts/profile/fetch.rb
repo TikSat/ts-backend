@@ -1,4 +1,4 @@
-class Profile::Fetch
+class Profile::Fetch < Base::Fetch
 
   private
 

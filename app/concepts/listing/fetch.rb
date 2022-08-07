@@ -1,4 +1,4 @@
-class Listing::Fetch
+class Listing::Fetch < Base::Fetch
 
   private
 

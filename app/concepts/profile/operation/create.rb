@@ -1,4 +1,4 @@
-class Profile::Operation::Create
+class Profile::Operation::Create < Base::Operation
   step :build_model
   step Contract::Build()
   step Contract::Validate()
