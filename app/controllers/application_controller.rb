@@ -1,10 +1,16 @@
 class ApplicationController < ActionController::API
-  include Pagy::Backend
-  include Representation
+  include TrbContext
   before_action :authenticate_resource
+
+  %i[index show create update destroy].each do |page|
+    define_method(page) do
+      endpoint page, pagination: page == :index, representer: controller_representer
+    end
+  end
 
   alias current_user current_resource
 
+  # TODO: move to protocol
   def authenticate_resource
     authenticate_and_set_user
   end
@@ -13,16 +19,8 @@ class ApplicationController < ActionController::API
     current_user&.current_profile
   end
 
-  private
-
-  def _run_options(options)
-    options.merge(
-      current_user: current_user,
-      current_profile: current_profile
-    )
-  end
-
-  def fetch_scope(operation)
-    run(operation)[:scope]
+  # override in specific controller
+  def controller_representer
+    nil
   end
 end

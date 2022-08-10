@@ -5,7 +5,7 @@ FactoryBot.reload
   FactoryBot.create_list(:category, 2, :with_custom_fields, :with_listings, parent_id: cat.id)
 
   Category.all.each do |category|
-    FactoryBot.create_list(:listing, 3, :with_custom_fields_values , category: category)
+    FactoryBot.create_list(:listing, 3, :with_custom_fields_values, category:)
   end
 end
 

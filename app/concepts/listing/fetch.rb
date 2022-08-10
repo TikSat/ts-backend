@@ -1,5 +1,4 @@
 class Listing::Fetch < Base::Fetch
-
   private
 
   def build_initial_scope(ctx, params:, **)
