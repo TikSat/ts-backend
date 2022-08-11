@@ -4,6 +4,6 @@ class Base::Fetch < Base::Operation
   private
 
   def build_initial_scope(_ctx, **)
-    raise StandardError, 'Should be defined in subclasses'
+    raise StandardError, 'Have to be defined in subclasses'
   end
 end

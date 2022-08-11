@@ -40,7 +40,7 @@ class User < ApplicationRecord
   def toggle_profile(profile)
     User.transaction do
       user_profiles.update_all(current: false)
-      user_profiles.where(profile: profile).update!(current: true)
+      user_profiles.where(profile:).update!(current: true)
     end
   end
 end
