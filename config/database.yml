@@ -15,6 +15,6 @@ test:
 
 production:
   <<: *default
-  database: tiksat_production
+  database: <%= ENV.fetch("DB_NAME", 'tiksat_production') %>
   username: tiksat
   password: <%= ENV["TIKSAT_DATABASE_PASSWORD"] %>

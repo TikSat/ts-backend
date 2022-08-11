@@ -5,6 +5,7 @@ AllCops:
   NewCops: enable
   Exclude:
     - 'db/schema.rb'
+    - 'vendor/bundle/**/*'
 
 Layout/SpaceInsideStringInterpolation:
   EnforcedStyle: no_space

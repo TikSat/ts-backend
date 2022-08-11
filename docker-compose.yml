@@ -1,0 +1,21 @@
+version: '3.4'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: app
+    ports:
+      - '127.0.0.1:3000:3000'
+    environment:
+      RAILS_MASTER_KEY: 'c7d0e101109c3cc19401b3e7e1958f75'
+
+  postgres:
+    container_name: postgres
+    image: postgres:14
+    restart: unless-stopped
+    environment:
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - ./docker/data/postgres:/var/lib/postgresql/data
