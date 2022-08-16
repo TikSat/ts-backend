@@ -1,5 +1,7 @@
 class Api::UsersController < ApplicationController
-  def show
-    present current_user
+  _endpoint :show, User::Fetch
+
+  def controller_representer
+    UserRepresenter
   end
 end

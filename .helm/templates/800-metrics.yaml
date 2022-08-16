@@ -1,12 +1,29 @@
+---
+apiVersion: operator.victoriametrics.com/v1beta1
+kind: VMProbe
+metadata:
+  name: "{{ $.Values.appType }}-{{ include "apps-backend.branch" . }}"
+spec:
+  vmProberSpec:
+    url: tech-prometheus-blackbox-exporter.tech.svc.cluster.local:9115
+  module: http_2xx
+  targets:
+    staticConfig:
+      targets:
+        - http://{{ $.Values.appType }}-{{ include "apps-backend.branch" . }}.apps.svc.cluster.local
+  interval: "30s"
+  scrapeTimeout: "30s"
+
+
 # ---
 # apiVersion: operator.victoriametrics.com/v1beta1
 # kind: VMPodScrape
 # metadata:
-#   name: "{{ $.Values.appType }}-{{ template "branch" }}"
+#   name: "{{ $.Values.appType }}-{{ include "apps-backend.branch" . }}"
 # spec:
 #   selector:
 #     matchLabels:
-#       service: "{{ $.Values.appType }}-{{ template "branch" }}"
+#       service: "{{ $.Values.appType }}-{{ include "apps-backend.branch" . }}"
 #   podMetricsEndpoints:
 #     - port: "http"
 #       scheme: "http"
@@ -18,19 +35,3 @@
 #       relabelConfigs:
 #         - action: labelmap
 #           regex: __meta_kubernetes_pod_label_(.+)
-
----
-apiVersion: operator.victoriametrics.com/v1beta1
-kind: VMProbe
-metadata:
-  name: "{{ $.Values.appType }}-{{ template "branch" }}"
-spec:
-  vmProberSpec:
-    url: tech-prometheus-blackbox-exporter.tech.svc.cluster.local:9115
-  module: http_2xx
-  targets:
-    staticConfig:
-      targets:
-        - http://{{ $.Values.appType }}-{{ template "branch" }}.apps.svc.cluster.local
-  interval: 30s
-  scrapeTimeout: 30s

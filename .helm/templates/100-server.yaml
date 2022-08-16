@@ -9,9 +9,9 @@ data: {}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: "{{ $.Values.appType }}-{{ template "branch" }}"
+  name: "{{ $.Values.appType }}-{{ include "apps-backend.branch" . }}"
   labels:
-    service: "{{ $.Values.appType }}-{{ template "branch" }}"
+    service: "{{ $.Values.appType }}-{{ include "apps-backend.branch" . }}"
 spec:
   replicas: 2
   strategy:
@@ -20,11 +20,11 @@ spec:
   minReadySeconds: 15
   selector:
     matchLabels:
-      service: "{{ $.Values.appType }}-{{ template "branch" }}"
+      service: "{{ $.Values.appType }}-{{ include "apps-backend.branch" . }}"
   template:
     metadata:
       labels:
-        service: "{{ $.Values.appType }}-{{ template "branch" }}"
+        service: "{{ $.Values.appType }}-{{ include "apps-backend.branch" . }}"
         appType: "{{ $.Values.appType }}"
     spec:
       containers:
@@ -51,9 +51,9 @@ spec:
               containerPort: 3000
           env:
             - name: RUN_ENV
-              value: "{{ template "branch" }}"
+              value: "{{ include "apps-backend.branch" . }}"
             - name: DB_NAME
-              value: "backend-{{ template "branch" }}"
+              value: "backend-{{ $.Values.branch }}"
           envFrom:
             - configMapRef:
                 name: {{ $.Values.appType }}-default-env
@@ -63,23 +63,23 @@ spec:
                 optional: false
           resources:
             requests:
-              memory: "2048Mi"
-              cpu: "1000m"
+              memory: "256Mi"
+              cpu: "125m"
               ephemeral-storage: "256Mi"
             limits:
-              memory: "3072Mi"
-              cpu: "2000m"
+              memory: "768Mi"
+              cpu: "1000m"
               ephemeral-storage: "256Mi"
 
 ---
 apiVersion: 'v1'
 kind: 'Service'
 metadata:
-  name: "{{ $.Values.appType }}-{{ template "branch" }}"
+  name: "{{ $.Values.appType }}-{{ include "apps-backend.branch" . }}"
 spec:
   type: ClusterIP
   selector:
-    service: "{{ $.Values.appType }}-{{ template "branch" }}"
+    service: "{{ $.Values.appType }}-{{ include "apps-backend.branch" . }}"
   ports:
     - port: 80
       targetPort: 3000

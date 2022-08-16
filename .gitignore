@@ -31,3 +31,6 @@
 .env
 
 .ruby-gemset
+
+# Ignore Jetbrains files
+.idea

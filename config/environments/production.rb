@@ -93,7 +93,7 @@ Rails.application.configure do
                            # Report errors to Sentry as warnings
                            Sentry.capture_exception exception,
                                                     level: 'warning',
-                                                    tags: { method: method, returning: returning }
+                                                    tags: { method:, returning: }
                          }
                        }
 

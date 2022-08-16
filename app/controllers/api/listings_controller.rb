@@ -1,45 +1,13 @@
 class Api::ListingsController < ApplicationController
   skip_before_action :authenticate_resource, only: %i[index show]
 
-  def index
-    listings = category.listings.includes(:custom_fields, :author)
-    return unless stale?(listings)
+  _endpoint :index, Listing::Fetch
+  _endpoint :show, Listing::Fetch::Single
+  _endpoint :create, Listing::Operation::Create
+  _endpoint :update, Listing::Operation::Update
+  _endpoint :destroy, Listing::Operation::Destroy
 
-    present listings
-  end
-
-  def show
-    return unless stale?(listing)
-
-    present listing
-  end
-
-  def create
-    listing = current_profile.listings.create(listing_params)
-    present listing
-  end
-
-  def update
-    listing.update(listing_params)
-    present listing
-  end
-
-  def destroy
-    listing.destroy
-  end
-
-  private
-
-  def category
-    @category = Category.find(params[:category_id])
-  end
-
-  def listing
-    @listing = category.listings.find(params[:id])
-  end
-
-  # TODO: add params
-  def listing_params
-    params.permit!
+  def controller_representer
+    ListingRepresenter
   end
 end

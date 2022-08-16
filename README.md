@@ -6,3 +6,9 @@
 - cd ts-frontend && yarn install
 - cd ..
 - foreman start -f Procfile.dev
+
+### Credentials
+
+| Service     | Login              | Password |
+|-------------|--------------------|----------|
+| *New Relic* | squadhog@gmail.com | *****    |
