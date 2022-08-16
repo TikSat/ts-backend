@@ -29,6 +29,7 @@ gem 'sentry-sidekiq'
 gem 'shrine', github: 'shrinerb/shrine'
 gem 'sidekiq'
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
+gem 'pg_search', '2.3.6'
 
 gem 'annotate'
 

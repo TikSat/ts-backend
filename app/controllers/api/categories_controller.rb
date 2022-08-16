@@ -10,7 +10,7 @@ class Api::CategoriesController < ApplicationController
   end
 
   def show
-    category = Category.find(params[:id])
+    category = Category.friendly.find(params[:id])
     return unless stale?(category)
 
     present category
