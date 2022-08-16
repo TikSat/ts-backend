@@ -45,7 +45,7 @@ class Adapters::Api < Trailblazer::Endpoint::Adapter::API
     errors.message = 'Action not allowed due to a policy setting.'
   end
 
-  def handle_invalid_data(ctx, errors:, domain_ctx:, **)
+  def handle_invalid_data(_ctx, errors:, domain_ctx:, **)
     errors.message = 'The submitted data is invalid.'
     errors.details = domain_ctx[:'contract.default'].errors.full_messages
   end
