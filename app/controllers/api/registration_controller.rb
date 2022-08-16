@@ -1,5 +1,4 @@
 class Api::RegistrationController < ApplicationController
-  skip_before_action :authenticate_resource
   def create
     init_resource(sign_up_params)
     if resource.save
