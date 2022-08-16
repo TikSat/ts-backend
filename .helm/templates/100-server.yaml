@@ -9,9 +9,9 @@ data: {}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: "{{ $.Values.appType }}-{{ $.Values.branch }}"
+  name: "{{ $.Values.appType }}-{{ template "branch" }}"
   labels:
-    service: "{{ $.Values.appType }}-{{ $.Values.branch }}"
+    service: "{{ $.Values.appType }}-{{ template "branch" }}"
 spec:
   replicas: 2
   strategy:
@@ -20,11 +20,11 @@ spec:
   minReadySeconds: 15
   selector:
     matchLabels:
-      service: "{{ $.Values.appType }}-{{ $.Values.branch }}"
+      service: "{{ $.Values.appType }}-{{ template "branch" }}"
   template:
     metadata:
       labels:
-        service: "{{ $.Values.appType }}-{{ $.Values.branch }}"
+        service: "{{ $.Values.appType }}-{{ template "branch" }}"
         appType: "{{ $.Values.appType }}"
     spec:
       containers:
@@ -51,9 +51,9 @@ spec:
               containerPort: 3000
           env:
             - name: RUN_ENV
-              value: "{{ $.Values.branch }}"
+              value: "{{ template "branch" }}"
             - name: DB_NAME
-              value: "backend-{{ $.Values.branch }}"
+              value: "backend-{{ template "branch" }}"
           envFrom:
             - configMapRef:
                 name: {{ $.Values.appType }}-default-env
@@ -75,11 +75,11 @@ spec:
 apiVersion: 'v1'
 kind: 'Service'
 metadata:
-  name: "{{ $.Values.appType }}-{{ $.Values.branch }}"
+  name: "{{ $.Values.appType }}-{{ template "branch" }}"
 spec:
   type: ClusterIP
   selector:
-    service: "{{ $.Values.appType }}-{{ $.Values.branch }}"
+    service: "{{ $.Values.appType }}-{{ template "branch" }}"
   ports:
     - port: 80
       targetPort: 3000
