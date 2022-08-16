@@ -1,11 +1,11 @@
 require 'swagger_helper'
 
 RSpec.describe 'api/profiles', type: :request do
-  let(:user) { create :user }
-  let(:profile) { create :profile, users: [user] }
+  let(:user) { create :user_with_profiles }
+  let(:another_profile) { create :profile }
   let(:token) { jwt_and_refresh_token(user, 'user') }
   let(:Authorization) { 'Bearer ' + token.first }
-  let(:id) { profile.id }
+  let(:id) { user.profiles.last.id }
 
   path '/api/profiles/{id}/toggle' do
     post('toggle profile') do
@@ -15,16 +15,11 @@ RSpec.describe 'api/profiles', type: :request do
       parameter name: :Authorization, in: :header, type: :string
 
       response(200, 'successful') do
-        let(:id) { '123' }
+        let(:id) { user.profiles.first.id }
 
-        after do |example|
-          example.metadata[:response][:content] = {
-            'application/json' => {
-              example: JSON.parse(response.body, symbolize_names: true)
-            }
-          }
+        run_test! do
+          expect(user.current_profile.id).to eq(id)
         end
-        run_test!
       end
     end
   end

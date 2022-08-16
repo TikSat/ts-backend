@@ -1,4 +1,4 @@
-class ProfileRepresenter < ApplicationRepresenter
+class Profile::Representer < Base::Representer
   property :id
   property :country
   property :city

@@ -1,4 +1,4 @@
-class CategoryRepresenter < ApplicationRepresenter
+class Category::Representer < Base::Representer
   property :id
   property :name
   property :desc

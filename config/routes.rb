@@ -8,15 +8,16 @@ Rails.application.routes.draw do
   namespace :api, defaults: { format: 'json' } do
     resources :categories, only: %i[index show] do
       resources :listings, only: %i[index show]
+      resources :subcategories, only: [:index], controller: 'categories', on: :member
     end
 
     resources :listings, only: %i[create update destroy]
 
     api_guard_routes for: 'users', controller: {
-      registration: 'users/registration',
-      authentication: 'users/authentication',
-      passwords: 'users/passwords',
-      tokens: 'users/tokens'
+      registration: 'registration',
+      authentication: 'authentication',
+      passwords: 'passwords',
+      tokens: 'tokens'
     }
 
     get '/me', to: 'users#show'

@@ -1,4 +1,4 @@
-class Api::Users::TokensController < ApplicationController
+class Api::TokensController < ApplicationController
   before_action :find_refresh_token, only: [:create]
 
   def create

@@ -1,4 +1,4 @@
-class UserRepresenter < ApplicationRepresenter
+class User::Representer < Base::Representer
   property :id
   property :email
   property :phone
@@ -8,6 +8,6 @@ class UserRepresenter < ApplicationRepresenter
   property :current_profile, decorator: ->(decorator:, input:, **) { decorator.representer_for(input) }
 
   def representer_for(object)
-    "#{object.class.name}Representer".constantize
+    "#{object.class.name}::Representer".constantize
   end
 end

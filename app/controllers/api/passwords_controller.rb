@@ -1,4 +1,4 @@
-class Api::Users::PasswordsController < ApplicationController
+class Api::PasswordsController < ApplicationController
   def update
     invalidate_old_jwt_tokens(current_resource)
 

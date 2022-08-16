@@ -1,4 +1,4 @@
-class Api::Users::AuthenticationController < ApplicationController
+class Api::AuthenticationController < ApplicationController
   before_action :find_resource, only: [:create]
   skip_before_action :authenticate_resource, only: [:create]
 

@@ -1,4 +1,4 @@
-class ListingRepresenter < ApplicationRepresenter
+class Listing::Representer < Base::Representer
   property :id
   property :title
   property :desc
@@ -7,9 +7,9 @@ class ListingRepresenter < ApplicationRepresenter
   property :author, decorator: ->(decorator:, input:, **) { decorator.representer_for(input) }
   property :category
 
-  collection :custom_fields, decorator: CustomFieldRepresenter
+  collection :custom_fields, decorator: CustomField::Representer
 
   def representer_for(object)
-    "#{object.class.name}Representer".constantize
+    "#{object.class.name}::Representer".constantize
   end
 end

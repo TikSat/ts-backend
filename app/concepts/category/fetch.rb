@@ -3,8 +3,8 @@ class Category::Fetch < Base::Fetch
 
   private
 
-  def build_initial_scope(ctx, **)
-    ctx[:scope] = Category.all
+  def build_initial_scope(ctx, params:, **)
+    ctx[:scope] = params[:category_id].present? ? Category.find(params[:category_id]).subcategories : Category.all
   end
 
   def apply_root(ctx, params:, scope:, **)
