@@ -1,4 +1,4 @@
 class Protocols::Api < Trailblazer::Endpoint::Protocol
-  step Auth::Operation::Authenticate, inherit: true, replace: :authenticate, id: :authenticate
-  step Auth::Operation::Policy, inherit: true, id: :policy, replace: :policy
+  step Subprocess(Auth::Operation::Authenticate), replace: :authenticate, id: :authenticate, Output(:failure) => Track(:not_authenticated)
+  step Subprocess(Auth::Operation::Policy), replace: :policy, id: :policy, Output(:failure) => Track(:not_authorized)
 end

@@ -2,6 +2,7 @@ class Adapters::Api < Trailblazer::Endpoint::Adapter::API
   Error = Struct.new(:message, :errors, :details)
 
   include Pagy::Backend
+
   step :render # added before End.success
   step :render_errors, after: :_422_status, magnetic_to: :failure, Output(:success) => Track(:failure)
   step :render_errors, after: :protocol_failure, magnetic_to: :fail_fast, Output(:success) => Track(:fail_fast), id: :render_protocol_failure_errors
@@ -33,6 +34,7 @@ class Adapters::Api < Trailblazer::Endpoint::Adapter::API
     [pagy, items.to_a]
   end
 
+  # errors handlers
   Trailblazer::Endpoint::Adapter::API.insert_error_handler_steps!(self)
 
   def handle_not_authenticated(_ctx, errors:, **)
@@ -43,8 +45,8 @@ class Adapters::Api < Trailblazer::Endpoint::Adapter::API
     errors.message = 'Action not allowed due to a policy setting.'
   end
 
-  def handle_invalid_data(ctx, errors:, **)
-    errors.details = ctx[:model]&.errors
+  def handle_invalid_data(ctx, errors:, domain_ctx:, **)
     errors.message = 'The submitted data is invalid.'
+    errors.details = domain_ctx[:'contract.default'].errors.full_messages
   end
 end

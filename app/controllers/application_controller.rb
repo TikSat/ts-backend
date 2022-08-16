@@ -1,14 +1,23 @@
 class ApplicationController < ActionController::API
-  include TrbContext
+  DEFAULT_ACTIONS = %i[index show create update destroy].freeze
 
-  %i[index show create update destroy].each do |page|
-    define_method(page) do
-      endpoint page, pagination: page == :index, representer: controller_representer
-    end
-  end
+  include TrbContext
 
   # override in specific controller
   def controller_representer
     nil
+  end
+
+  # define actions without auth
+  def public_actions
+    []
+  end
+
+  DEFAULT_ACTIONS.each do |action|
+    define_method(action) do
+      endpoint action, pagination: action == :index,
+                       representer: controller_representer,
+                       skip_auth: public_actions.include?(action)
+    end
   end
 end

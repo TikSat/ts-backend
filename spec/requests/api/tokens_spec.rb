@@ -1,7 +1,7 @@
 require 'swagger_helper'
 
 RSpec.describe 'api/users/tokens', type: :request, skip: true do
-  path '/api/users/tokens' do
+  path '/api/tokens' do
     post('create token') do
       tags 'Users'
       response(200, 'successful') do

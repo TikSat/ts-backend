@@ -8,4 +8,8 @@ class Api::ListingsController < ApplicationController
   def controller_representer
     Listing::Representer
   end
+
+  def public_actions
+    %i[index show]
+  end
 end

@@ -7,8 +7,8 @@ module TrbContext
 
     endpoint protocol: Protocols::Api, adapter: Adapters::Api
 
-    def self._endpoint(name, op_class, **args)
-      endpoint(name, domain_activity: op_class, **args)
+    def self._endpoint(name, op_class, **args, &)
+      endpoint(name, domain_activity: op_class, **args, &)
     end
 
     def self.options_for_block_options(_ctx, controller:, **)
