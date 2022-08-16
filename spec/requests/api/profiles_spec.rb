@@ -1,12 +1,19 @@
 require 'swagger_helper'
 
 RSpec.describe 'api/profiles', type: :request do
-  path '/api/profiles/{id}/toggle' do
-    # You'll want to customize the parameter types...
-    parameter name: 'id', in: :path, type: :string, description: 'id'
+  let(:user) { create :user }
+  let(:profile) { create :profile, users: [user] }
+  let(:token) { jwt_and_refresh_token(user, 'user') }
+  let(:Authorization) { 'Bearer ' + token.first }
+  let(:id) { profile.id }
 
+  path '/api/profiles/{id}/toggle' do
     post('toggle profile') do
       tags 'Profiles'
+      parameter name: 'id', in: :path, type: :string, description: 'profile id'
+      security [Bearer: {}]
+      parameter name: :Authorization, in: :header, type: :string
+
       response(200, 'successful') do
         let(:id) { '123' }
 
@@ -25,6 +32,11 @@ RSpec.describe 'api/profiles', type: :request do
   path '/api/profiles' do
     get('list profiles') do
       tags 'Profiles'
+      security [Bearer: {}]
+      parameter name: :Authorization, in: :header, type: :string
+      parameter name: :page, in: :query, type: :integer, description: 'Page for pagination', required: false
+      parameter name: :items, in: :query, type: :integer, description: 'Number of items per page', required: false
+
       response(200, 'successful') do
         after do |example|
           example.metadata[:response][:content] = {
@@ -39,6 +51,9 @@ RSpec.describe 'api/profiles', type: :request do
 
     post('create profile') do
       tags 'Profiles'
+      security [Bearer: {}]
+      parameter name: :Authorization, in: :header, type: :string
+
       response(200, 'successful') do
         after do |example|
           example.metadata[:response][:content] = {
@@ -53,14 +68,14 @@ RSpec.describe 'api/profiles', type: :request do
   end
 
   path '/api/profiles/{id}' do
-    # You'll want to customize the parameter types...
     parameter name: 'id', in: :path, type: :string, description: 'id'
 
     get('show profile') do
       tags 'Profiles'
-      response(200, 'successful') do
-        let(:id) { '123' }
+      security [Bearer: {}]
+      parameter name: :Authorization, in: :header, type: :string
 
+      response(200, 'successful') do
         after do |example|
           example.metadata[:response][:content] = {
             'application/json' => {
@@ -74,9 +89,10 @@ RSpec.describe 'api/profiles', type: :request do
 
     patch('update profile') do
       tags 'Profiles'
-      response(200, 'successful') do
-        let(:id) { '123' }
+      security [Bearer: {}]
+      parameter name: :Authorization, in: :header, type: :string
 
+      response(200, 'successful') do
         after do |example|
           example.metadata[:response][:content] = {
             'application/json' => {
@@ -91,7 +107,8 @@ RSpec.describe 'api/profiles', type: :request do
     put('update profile') do
       tags 'Profiles'
       response(200, 'successful') do
-        let(:id) { '123' }
+        security [Bearer: {}]
+        parameter name: :Authorization, in: :header, type: :string
 
         after do |example|
           example.metadata[:response][:content] = {
@@ -106,9 +123,10 @@ RSpec.describe 'api/profiles', type: :request do
 
     delete('delete profile') do
       tags 'Profiles'
-      response(200, 'successful') do
-        let(:id) { '123' }
+      security [Bearer: {}]
+      parameter name: :Authorization, in: :header, type: :string
 
+      response(200, 'successful') do
         after do |example|
           example.metadata[:response][:content] = {
             'application/json' => {

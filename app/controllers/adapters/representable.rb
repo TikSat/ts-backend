@@ -1,8 +1,8 @@
 class Adapters::Representable < Trailblazer::Endpoint::Adapter::API
   include Pagy::Backend
   step :render # added before End.success
-  step :render_errors, after: :_422_status, magnetic_to: :failure, Output(:success) => Track(:failure)
-  step :render_errors, after: :protocol_failure, magnetic_to: :fail_fast, Output(:success) => Track(:fail_fast), id: :render_protocol_failure_errors
+  # step :render_errors, after: :_422_status, magnetic_to: :failure, Output(:success) => Track(:failure)
+  # step :render_errors, after: :protocol_failure, magnetic_to: :fail_fast, Output(:success) => Track(:fail_fast), id: :render_protocol_failure_errors
 
   def render(ctx, domain_ctx:, pagination:, representer:, **)
     pagy, items = if pagination
@@ -30,7 +30,7 @@ class Adapters::Representable < Trailblazer::Endpoint::Adapter::API
     items = pagy_get_items(scope, pagy)
     [pagy, items.to_a]
   end
-
-  Trailblazer::Endpoint::Adapter::API.insert_error_handler_steps!(self)
-  include Trailblazer::Endpoint::Adapter::API::Errors::Handlers
+  #
+  # Trailblazer::Endpoint::Adapter::API.insert_error_handler_steps!(self)
+  # include Trailblazer::Endpoint::Adapter::API::Errors::Handlers
 end

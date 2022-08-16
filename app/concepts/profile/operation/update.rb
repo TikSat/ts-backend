@@ -1,7 +1,7 @@
 class Profile::Operation::Update < Base::Operation
-  step Model(Profile, :find_by, not_found_terminus: true)
+  step Model(Profile, :find_by)
   # step Policy::Guard(:current_user?)
-  step Contract::Build()
+  step Contract::Build(constant: Base::Form)
   step Contract::Validate()
   step Contract::Persist()
 

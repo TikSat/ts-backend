@@ -1,6 +1,6 @@
 require 'swagger_helper'
 
-RSpec.describe 'api/users/authentication', type: :request do
+RSpec.describe 'api/users/authentication', type: :request, skip: true do
   path '/api/users/sign_in' do
     post('create authentication') do
       tags 'Users'

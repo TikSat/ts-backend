@@ -1,7 +1,7 @@
 class Listing::Operation::Update < Base::Operation
-  step Model(Listing, :find_by, not_found_terminus: true)
-  # step Policy::Guard(:update?)
-  step Contract::Build()
+  step Model(Listing, :find_by)
+  step Policy::Guard(:update?)
+  step Contract::Build(constant: Listing::Form)
   step Contract::Validate()
   step Contract::Persist()
 
