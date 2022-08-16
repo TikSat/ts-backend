@@ -1,6 +1,6 @@
 require 'swagger_helper'
 
-RSpec.describe 'api/users/passwords', type: :request do
+RSpec.describe 'api/users/passwords', type: :request, skip: true do
   path '/api/users/passwords' do
     patch('update password') do
       tags 'Users'

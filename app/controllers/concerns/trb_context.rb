@@ -13,6 +13,7 @@ module TrbContext
 
     def self.options_for_block_options(_ctx, controller:, **)
       response_block = lambda do |_ctx, endpoint_ctx:, **|
+        # pp endpoint_ctx
         controller.success_render(**endpoint_ctx)
       end
 
@@ -35,7 +36,7 @@ module TrbContext
     # this is going to Trb operation
     def self.options_for_domain_ctx(_ctx, controller:, **)
       {
-        params: controller.params,
+        params: controller.params.permit!,
         current_user: controller.current_user,
         current_profile: controller.current_profile
       }

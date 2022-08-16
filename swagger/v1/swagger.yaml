@@ -52,28 +52,91 @@ paths:
       - name: page
         in: query
         description: Page for pagination
+        required: false
         schema:
           type: integer
       - name: items
         in: query
         description: Number of items per page
+        required: false
         schema:
           type: integer
       responses:
         '200':
           description: successful
-  "/api/categories/{id}":
-    parameters:
-    - name: id
-      in: path
-      description: id
-      required: true
-      schema:
-        type: string
-    get:
-      summary: show category
+  "/api/listings":
+    post:
+      summary: create listing
       tags:
-      - Categories
+      - Listings
+      security:
+      - Bearer: {}
+      parameters: []
+      responses:
+        '200':
+          description: successful
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                profile_id:
+                  type: integer
+                category_id:
+                  type: integer
+  "/api/listings/{id}":
+    patch:
+      summary: update listing
+      tags:
+      - Listings
+      security:
+      - Bearer: {}
+      parameters:
+      - name: Authorization
+        in: header
+        schema:
+          type: string
+      - name: id
+        in: path
+        description: Listing ID
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: successful
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                profile_id:
+                  type: integer
+                category_id:
+                  type: integer
+    delete:
+      summary: delete listing
+      tags:
+      - Listings
+      security:
+      - Bearer: {}
+      parameters:
+      - name: Authorization
+        in: header
+        schema:
+          type: string
+      - name: id
+        in: path
+        description: Listing ID
+        required: true
+        schema:
+          type: string
       responses:
         '200':
           description: successful
@@ -87,11 +150,21 @@ paths:
         type: string
     get:
       summary: list listings
-      responses:
-        '200':
-          description: successful
-    post:
-      summary: create listing
+      tags:
+      - Listings
+      parameters:
+      - name: page
+        in: query
+        description: Page for pagination
+        required: false
+        schema:
+          type: integer
+      - name: items
+        in: query
+        description: Number of items per page
+        required: false
+        schema:
+          type: integer
       responses:
         '200':
           description: successful
@@ -111,36 +184,29 @@ paths:
         type: string
     get:
       summary: show listing
-      responses:
-        '200':
-          description: successful
-    patch:
-      summary: update listing
-      responses:
-        '200':
-          description: successful
-    put:
-      summary: update listing
-      responses:
-        '200':
-          description: successful
-    delete:
-      summary: delete listing
+      tags:
+      - Listings
       responses:
         '200':
           description: successful
   "/api/profiles/{id}/toggle":
-    parameters:
-    - name: id
-      in: path
-      description: id
-      required: true
-      schema:
-        type: string
     post:
       summary: toggle profile
       tags:
       - Profiles
+      parameters:
+      - name: id
+        in: path
+        description: profile id
+        required: true
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        schema:
+          type: string
+      security:
+      - Bearer: {}
       responses:
         '200':
           description: successful
@@ -149,6 +215,25 @@ paths:
       summary: list profiles
       tags:
       - Profiles
+      security:
+      - Bearer: {}
+      parameters:
+      - name: Authorization
+        in: header
+        schema:
+          type: string
+      - name: page
+        in: query
+        description: Page for pagination
+        required: false
+        schema:
+          type: integer
+      - name: items
+        in: query
+        description: Number of items per page
+        required: false
+        schema:
+          type: integer
       responses:
         '200':
           description: successful
@@ -156,6 +241,13 @@ paths:
       summary: create profile
       tags:
       - Profiles
+      security:
+      - Bearer: {}
+      parameters:
+      - name: Authorization
+        in: header
+        schema:
+          type: string
       responses:
         '200':
           description: successful
@@ -171,6 +263,13 @@ paths:
       summary: show profile
       tags:
       - Profiles
+      security:
+      - Bearer: {}
+      parameters:
+      - name: Authorization
+        in: header
+        schema:
+          type: string
       responses:
         '200':
           description: successful
@@ -178,6 +277,13 @@ paths:
       summary: update profile
       tags:
       - Profiles
+      security:
+      - Bearer: {}
+      parameters:
+      - name: Authorization
+        in: header
+        schema:
+          type: string
       responses:
         '200':
           description: successful
@@ -185,6 +291,13 @@ paths:
       summary: update profile
       tags:
       - Profiles
+      security:
+      - Bearer: {}
+      parameters:
+      - name: Authorization
+        in: header
+        schema:
+          type: string
       responses:
         '200':
           description: successful
@@ -192,6 +305,13 @@ paths:
       summary: delete profile
       tags:
       - Profiles
+      security:
+      - Bearer: {}
+      parameters:
+      - name: Authorization
+        in: header
+        schema:
+          type: string
       responses:
         '200':
           description: successful
@@ -227,14 +347,6 @@ paths:
       responses:
         '200':
           description: successful
-  "/api/users/delete":
-    delete:
-      summary: delete registration
-      tags:
-      - Users
-      responses:
-        '200':
-          description: successful
   "/api/users/tokens":
     post:
       summary: create token
@@ -248,8 +360,22 @@ paths:
       summary: show user
       tags:
       - Users
+      security:
+      - Bearer: {}
+      parameters:
+      - name: Authorization
+        in: header
+        schema:
+          type: string
       responses:
         '200':
           description: successful
 servers:
 - url: http://localhost:3000
+components:
+  securitySchemes:
+    Bearer:
+      description: Auth token
+      type: apiKey
+      name: Authorization
+      in: header

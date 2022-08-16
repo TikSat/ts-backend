@@ -7,8 +7,10 @@ Rails.application.routes.draw do
 
   namespace :api, defaults: { format: 'json' } do
     resources :categories, only: %i[index show] do
-      resources :listings
+      resources :listings, only: %i[index show]
     end
+
+    resources :listings, only: %i[create update destroy]
 
     api_guard_routes for: 'users', controller: {
       registration: 'users/registration',

@@ -1,6 +1,6 @@
 require 'swagger_helper'
 
-RSpec.describe 'api/admin/custom_fields', type: :request do
+RSpec.describe 'api/admin/custom_fields', type: :request, skip: true do
   path '/api/admin/custom_fields' do
     get('list custom_fields') do
       response(200, 'successful') do

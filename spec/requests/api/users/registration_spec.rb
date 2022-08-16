@@ -1,6 +1,6 @@
 require 'swagger_helper'
 
-RSpec.describe 'api/users/registration', type: :request do
+RSpec.describe 'api/users/registration', type: :request, skip: true do
   path '/api/users/sign_up' do
     post('create registration') do
       tags 'Users'
