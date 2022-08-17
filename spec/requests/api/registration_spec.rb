@@ -1,8 +1,8 @@
 require 'swagger_helper'
 
-RSpec.describe 'api/users/passwords', type: :request, skip: true do
-  path '/api/users/passwords' do
-    patch('update password') do
+RSpec.describe 'api/registration', type: :request, skip: true do
+  path '/api/sign_up' do
+    post('create registration') do
       tags 'Users'
       response(200, 'successful') do
         after do |example|

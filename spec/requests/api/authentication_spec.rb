@@ -1,7 +1,7 @@
 require 'swagger_helper'
 
-RSpec.describe 'api/users/authentication', type: :request, skip: true do
-  path '/api/users/sign_in' do
+RSpec.describe 'api/authentication', type: :request, skip: true do
+  path '/api/sign_in' do
     post('create authentication') do
       tags 'Users'
       response(200, 'successful') do
@@ -17,7 +17,7 @@ RSpec.describe 'api/users/authentication', type: :request, skip: true do
     end
   end
 
-  path '/api/users/sign_out' do
+  path '/api/sign_out' do
     delete('delete authentication') do
       tags 'Users'
       response(200, 'successful') do

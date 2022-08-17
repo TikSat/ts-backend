@@ -4,4 +4,8 @@ class Api::CategoriesController < ApplicationController
   def controller_representer
     Category::Representer
   end
+
+  def public_actions
+    [:index]
+  end
 end

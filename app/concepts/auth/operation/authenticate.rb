@@ -6,6 +6,8 @@ class Auth::Operation::Authenticate < Base::Operation
   private
 
   def auth(ctx, request:, **)
+    return true if ctx[:skip_auth]
+
     @token = request.headers['Authorization']&.split('Bearer ')&.last
 
     authenticate_token
