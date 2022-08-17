@@ -49,7 +49,7 @@ module TrbContext
 
     def success_render(ctx)
       pagy_headers_merge(ctx[:pagy]) if ctx[:pagy]
-      render json: ctx[:representer].to_hash(params[:response] || {}), status: ctx[:status]
+      render json: ctx[:representer].to_hash(params[:response] || {}), status: ctx[:status] if stale?(ctx[:items]) # TODO: make HTTP cache work
     end
 
     def error_render(ctx)

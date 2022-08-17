@@ -14,6 +14,7 @@ class Adapters::Api < Trailblazer::Endpoint::Adapter::API
                     [nil, domain_ctx[:model]]
                   end
     decorator = representer || representer_for(items)
+    ctx[:items] = items
     ctx[:pagy] = pagy
     ctx[:representer] = decorator.represent(items)
   end

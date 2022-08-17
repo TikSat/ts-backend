@@ -43,6 +43,22 @@ paths:
       responses:
         '200':
           description: successful
+  "/api/sign_in":
+    post:
+      summary: create authentication
+      tags:
+      - Users
+      responses:
+        '200':
+          description: successful
+  "/api/sign_out":
+    delete:
+      summary: delete authentication
+      tags:
+      - Users
+      responses:
+        '200':
+          description: successful
   "/api/categories":
     get:
       summary: list categories
@@ -189,6 +205,14 @@ paths:
       responses:
         '200':
           description: successful
+  "/api/passwords":
+    patch:
+      summary: update password
+      tags:
+      - Users
+      responses:
+        '200':
+          description: successful
   "/api/profiles/{id}/toggle":
     post:
       summary: toggle profile
@@ -315,31 +339,7 @@ paths:
       responses:
         '200':
           description: successful
-  "/api/users/sign_in":
-    post:
-      summary: create authentication
-      tags:
-      - Users
-      responses:
-        '200':
-          description: successful
-  "/api/users/sign_out":
-    delete:
-      summary: delete authentication
-      tags:
-      - Users
-      responses:
-        '200':
-          description: successful
-  "/api/users/passwords":
-    patch:
-      summary: update password
-      tags:
-      - Users
-      responses:
-        '200':
-          description: successful
-  "/api/users/sign_up":
+  "/api/sign_up":
     post:
       summary: create registration
       tags:
@@ -347,7 +347,7 @@ paths:
       responses:
         '200':
           description: successful
-  "/api/users/tokens":
+  "/api/tokens":
     post:
       summary: create token
       tags:
