@@ -11,7 +11,11 @@ Rails.application.routes.draw do
       resources :subcategories, only: [:index], controller: 'categories', on: :member
     end
 
-    resources :listings, only: %i[create update destroy]
+    resources :listings, only: %i[create update destroy] do
+      collection do
+        get :recommended
+      end
+    end
 
     api_guard_routes for: 'users', controller: {
       registration: 'registration',

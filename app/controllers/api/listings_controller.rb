@@ -4,9 +4,16 @@ class Api::ListingsController < ApplicationController
   _endpoint :create, Listing::Operation::Create
   _endpoint :update, Listing::Operation::Update
   _endpoint :destroy, Listing::Operation::Destroy
+  _endpoint :recommended, Listing::Fetch::Recommended
 
   def controller_representer
     Listing::Representer
+  end
+
+  def recommended
+    endpoint :recommended, pagination: true,
+                           skip_auth: true,
+                           representer: controller_representer
   end
 
   def public_actions
