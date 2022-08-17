@@ -14,13 +14,12 @@ fi
 
 set -e
 
-until nc -z "$POSTGRES_HOST" 5432; do
-  echo "Waiting for Database (Error when connecting to $POSTGRES_HOST:5432)"
+until nc -z "$POSTGRES_HOST" "$POSTGRES_PORT"; do
+  echo "Waiting for Database (Error when connecting to $POSTGRES_HOST:"$POSTGRES_PORT")"
   sleep 3
 done
 
 echo 'Preparing Backend'
-bundle exec rake db:create
 bundle exec rake db:migrate
 
 # Run original command

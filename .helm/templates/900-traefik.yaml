@@ -2,7 +2,7 @@
 apiVersion: traefik.containo.us/v1alpha1
 kind: Middleware
 metadata:
-  name: "{{ $.Values.appType }}-{{ $.Values.branch }}-retry"
+  name: "{{ $.Values.appType }}-{{ include "apps-backend.branch" . }}-retry"
   namespace: "apps"
 spec:
   retry:
@@ -13,7 +13,7 @@ spec:
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
-  name: "{{ $.Values.appType }}-{{ $.Values.branch }}"
+  name: "{{ $.Values.appType }}-{{ include "apps-backend.branch" . }}"
   namespace: "apps"
 spec:
   entryPoints:
@@ -21,10 +21,10 @@ spec:
   routes:
     - match: Host(`{{ $.Values.branch }}.{{ $.Values.domain }}`)
       middlewares:
-        - name: "{{ $.Values.appType }}-{{ $.Values.branch }}-retry"
+        - name: "{{ $.Values.appType }}-{{ include "apps-backend.branch" . }}-retry"
       kind: Rule
       services:
-        - name: "{{ $.Values.appType }}-{{ $.Values.branch }}"
+        - name: "{{ $.Values.appType }}-{{ include "apps-backend.branch" . }}"
           port: 80
   tls:
     certResolver: main-le
