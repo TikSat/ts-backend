@@ -63,8 +63,8 @@ spec:
                 optional: false
           resources:
             requests:
-              memory: "256Mi"
-              cpu: "125m"
+              memory: "128Mi"
+              cpu: "50m"
               ephemeral-storage: "256Mi"
             limits:
               memory: "768Mi"
