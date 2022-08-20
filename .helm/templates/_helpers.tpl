@@ -3,5 +3,5 @@
 {{- end }}
 
 {{- define "apps-backend.namespace" }}
-{{ if eq .Values.branch "master" }} {{ .Values.namespace }}-production {{ else }} {{ .Values.namespace }} {{ end }}
+{{ if eq .Values.branch "master" }}{{ .Values.namespace }}-production{{ else }}{{ .Values.namespace }}{{ end }}
 {{- end }}
