@@ -1,10 +1,10 @@
-name: k8s_deploy_production
+name: k8s_deploy
 
 on:
   push:
     branches:
-      - TS-26-add-github-actions
       - master
+      - '**'
 
 jobs:
   build_and_deploy:
@@ -21,7 +21,7 @@ jobs:
       - uses: actions/checkout@v3
         with:
           fetch-depth: 3
-       # Enable Docker layer caching. Restores cache and saves layers after job finished
+      # Enable Docker layer caching. Restores cache and saves layers after job finished
       - uses: satackey/action-docker-layer-caching@v0.0.11
         # Ignore the failure of a step and avoid terminating the job.
         continue-on-error: true
@@ -31,22 +31,22 @@ jobs:
           GIT_BRANCH=${GITHUB_BASE_REF:-${GITHUB_REF#refs/heads/}}
           GIT_BRANCH=${GIT_BRANCH//\//-} # Replace / with -
           GIT_BRANCH=${GIT_BRANCH//_/-} # Replace _ with -
+          GIT_BRANCH=${GIT_BRANCH,,} # Lower case
           echo "GIT_BRANCH=$GIT_BRANCH" >> $GITHUB_ENV
+      - name: Create Sentry release
+        uses: getsentry/action-release@v1
+        env:
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+          SENTRY_ORG: tiksat
+          SENTRY_PROJECT: backend
+        with:
+          environment: ${{ env.branch }}
+          version: ${{ github.sha }}
+          ignore_missing: true
       - name: Install doctl
         uses: digitalocean/action-doctl@v2
         with:
           token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
-      #- name: Create Sentry release
-      #  uses: getsentry/action-release@v1
-      #  env:
-      #    SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
-      #    SENTRY_ORG: wowswap-io
-      #    SENTRY_PROJECT: ${{ github.event.repository.name }}
-      #    SENTRY_URL: https://sentry.tech.wow.ceo/
-      #  with:
-      #    environment: ${{ env.namespace }}
-      #    version: ${{ github.sha }}
-      #    ignore_missing: true
       - name: Build & Deploy
         shell: bash
         run: |
@@ -56,10 +56,10 @@ jobs:
           docker build --secret id=npmrc,src=$HOME/.npmrc --tag $REPO_IMAGE --build-arg SENTRY_RELEASE=${{ github.sha }} .
           docker push $REPO_IMAGE
 
-          if helm status apps-${{ github.event.repository.name }}${{ env.suffix }}-${{ env.namespace }} --namespace ${{ env.namespace }}; then 
-            helm upgrade apps-${{ github.event.repository.name }}${{ env.suffix }}-${{ env.namespace }} ./.helm --namespace ${{ env.namespace }} --set image=$REPO_IMAGE --set branch=$GIT_BRANCH --wait
+          if helm status ${{ github.event.repository.name }}${{ env.suffix }}-${{ env.namespace }}-$GIT_BRANCH --namespace ${{ env.namespace }}; then 
+            helm upgrade ${{ github.event.repository.name }}${{ env.suffix }}-${{ env.namespace }}-$GIT_BRANCH ./.helm --namespace ${{ env.namespace }} --set image=$REPO_IMAGE --set branch=$GIT_BRANCH --wait
           else 
-            helm install apps-${{ github.event.repository.name }}${{ env.suffix }}-${{ env.namespace }} ./.helm --namespace ${{ env.namespace }} --set image=$REPO_IMAGE --set branch=$GIT_BRANCH --wait
+            helm install ${{ github.event.repository.name }}${{ env.suffix }}-${{ env.namespace }}-$GIT_BRANCH ./.helm --namespace ${{ env.namespace }} --set image=$REPO_IMAGE --set branch=$GIT_BRANCH --wait
           fi
         env:
           REPO_IMAGE: ${{ env.docker_repo }}/${{ env.docker_repo_name }}:${{ github.event.repository.name }}${{ env.suffix }}-${{ env.namespace }}-${{ github.sha }}
