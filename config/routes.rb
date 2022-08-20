@@ -17,14 +17,7 @@ Rails.application.routes.draw do
       end
     end
 
-    # api_guard_routes controller: {
-    #   registration: 'registration',
-    #   authentication: 'authentication',
-    #   passwords: 'passwords',
-    #   tokens: 'tokens'
-    # }
-
-    post '/sign_up', to: 'registration#create'
+    post '/sign_up', controller: 'registration', action: 'create'
     get '/me', to: 'users#show'
 
     resources :profiles do
