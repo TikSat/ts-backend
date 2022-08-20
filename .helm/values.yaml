@@ -2,5 +2,6 @@ domain: backend.tiksat.bid
 appType: backend
 
 # Should be provided from cmd
-branch: production
+branch: master
 image: ""
+namespace: apps

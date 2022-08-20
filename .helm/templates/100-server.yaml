@@ -3,6 +3,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: {{ $.Values.appType }}-default-env-{{ include "apps-backend.branch" . }}
+  namespace: "{{ include "apps-backend.namespace" . }}"
 data: {}
 
 ---
@@ -10,6 +11,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: "{{ $.Values.appType }}-{{ include "apps-backend.branch" . }}"
+  namespace: "{{ include "apps-backend.namespace" . }}"
   labels:
     service: "{{ $.Values.appType }}-{{ include "apps-backend.branch" . }}"
 spec:
@@ -76,6 +78,7 @@ apiVersion: 'v1'
 kind: 'Service'
 metadata:
   name: "{{ $.Values.appType }}-{{ include "apps-backend.branch" . }}"
+  namespace: "{{ include "apps-backend.namespace" . }}"
 spec:
   type: ClusterIP
   selector:

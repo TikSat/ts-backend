@@ -3,6 +3,7 @@ apiVersion: operator.victoriametrics.com/v1beta1
 kind: VMProbe
 metadata:
   name: "{{ $.Values.appType }}-{{ include "apps-backend.branch" . }}"
+  namespace: "{{ include "apps-backend.namespace" . }}"
 spec:
   vmProberSpec:
     url: tech-prometheus-blackbox-exporter.tech.svc.cluster.local:9115
@@ -10,7 +11,7 @@ spec:
   targets:
     staticConfig:
       targets:
-        - http://{{ $.Values.appType }}-{{ include "apps-backend.branch" . }}.apps.svc.cluster.local
+        - http://{{ $.Values.appType }}-{{ include "apps-backend.branch" . }}.{{ include "apps-backend.namespace" . }}.svc.cluster.local
   interval: "30s"
   scrapeTimeout: "30s"
 
@@ -20,6 +21,7 @@ spec:
 # kind: VMPodScrape
 # metadata:
 #   name: "{{ $.Values.appType }}-{{ include "apps-backend.branch" . }}"
+#   namespace: "{{ include "apps-backend.namespace" . }}"
 # spec:
 #   selector:
 #     matchLabels:
