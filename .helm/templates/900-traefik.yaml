@@ -3,7 +3,6 @@ apiVersion: traefik.containo.us/v1alpha1
 kind: Middleware
 metadata:
   name: "{{ $.Values.appType }}-{{ include "apps-backend.branch" . }}-retry"
-  namespace: "apps"
 spec:
   retry:
     attempts: 10
@@ -14,7 +13,6 @@ apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
   name: "{{ $.Values.appType }}-{{ include "apps-backend.branch" . }}"
-  namespace: "apps"
 spec:
   entryPoints:
     - websecure
