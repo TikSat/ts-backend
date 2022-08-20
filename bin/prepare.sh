@@ -24,7 +24,12 @@ echo 'Preparing Backend'
 if ! stringContain "master" "$RUN_ENV"; then
   bundle exec rake db:create
 fi
+
 bundle exec rake db:migrate
+
+if ! stringContain "master" "$RUN_ENV"; then
+  bundle exec rake db:seed
+fi
 
 # Run original command
 echo 'Starting Backend'
