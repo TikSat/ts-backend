@@ -343,10 +343,22 @@ paths:
     post:
       summary: create registration
       tags:
-      - Users
+      - User
+      - Auth
+      parameters: []
       responses:
         '200':
-          description: successful
+          description: user created
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email: string
+                password: string
+                password_confirmation: string
+        required: true
   "/api/tokens":
     post:
       summary: create token
