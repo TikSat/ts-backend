@@ -10,10 +10,6 @@ class Auth::Operation::SignIn < Base::Operation
 
   private
 
-  def log(ctx, **)
-    pp ctx
-  end
-
   def authenticate(_ctx, params:, model:, **)
     model.authenticate(params[:password])
   end
