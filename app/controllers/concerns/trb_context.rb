@@ -12,8 +12,8 @@ module TrbContext
     end
 
     def self.options_for_block_options(_ctx, controller:, **)
-      success_response = lambda do |_ctx, endpoint_ctx:, **|
-        controller.success_render(endpoint_ctx)
+      success_response = lambda do |ctx, **|
+        controller.success_render(ctx)
       end
 
       failure_response = lambda do |_ctx, endpoint_ctx:, **|
@@ -48,8 +48,9 @@ module TrbContext
     directive :options_for_domain_ctx, method(:options_for_domain_ctx)
 
     def success_render(ctx)
-      pagy_headers_merge(ctx[:pagy]) if ctx[:pagy]
-      render json: ctx[:representer].to_hash(params[:response] || {}), status: ctx[:status] if stale?(ctx[:items]) # TODO: make HTTP cache work
+      nctx = ctx[:endpoint_ctx]
+      pagy_headers_merge(nctx[:pagy]) if ctx[:pagy]
+      render json: nctx[:representer].to_hash(params[:response] || {}), status: ctx[:status]
     end
 
     def error_render(ctx)

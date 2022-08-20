@@ -1,17 +1,14 @@
 class Api::RegistrationController < ApplicationController
+  _endpoint :create, Auth::Operation::Register
+
   def create
-    init_resource(sign_up_params)
-    if resource.save
-      create_token_and_set_header(resource, resource_name)
-      render_success(message: 'Signed up')
-    else
-      render_error(422, object: resource)
-    end
+    endpoint :create, skip_auth: true
   end
 
-  private
-
-  def sign_up_params
-    params.permit(:email, :password, :password_confirmation)
+  def success_render(ctx)
+    render json: { token: ctx[:token],
+                   refresh_token: ctx[:refresh_token],
+                   token_expire_at: ctx[:token_expire_at] },
+           status: ctx[:status]
   end
 end
