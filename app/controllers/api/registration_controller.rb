@@ -1,5 +1,5 @@
 class Api::RegistrationController < ApplicationController
-  _endpoint :create, Auth::Operation::Register
+  _endpoint :create, Auth::Operation::SignUp
 
   def create
     endpoint :create, skip_auth: true

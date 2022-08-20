@@ -1,24 +1,14 @@
 class Api::AuthenticationController < ApplicationController
-  before_action :find_resource, only: [:create]
+  _endpoint :create, Auth::Operation::SignIn
 
   def create
-    if resource.authenticate(params[:password])
-      create_token_and_set_header(resource, resource_name)
-      render_success(message: I18n.t('api_guard.authentication.signed_in'))
-    else
-      render_error(422, message: I18n.t('api_guard.authentication.invalid_login_credentials'))
-    end
+    endpoint :create, skip_auth: true
   end
 
-  def destroy
-    blacklist_token
-    render_success(message: I18n.t('api_guard.authentication.signed_out'))
-  end
-
-  private
-
-  def find_resource
-    self.resource = resource_class.find_by(email: params[:email].downcase.strip) if params[:email].present?
-    render_error(422, message: I18n.t('api_guard.authentication.invalid_login_credentials')) unless resource
+  def success_render(ctx)
+    render json: { token: ctx[:token],
+                   refresh_token: ctx[:refresh_token],
+                   token_expire_at: ctx[:token_expire_at] },
+           status: ctx[:status]
   end
 end

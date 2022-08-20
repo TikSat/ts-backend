@@ -18,6 +18,7 @@ Rails.application.routes.draw do
     end
 
     post '/sign_up', controller: 'registration', action: 'create'
+    post '/sign_in', controller: 'authentication', action: 'create'
     get '/me', to: 'users#show'
 
     resources :profiles do

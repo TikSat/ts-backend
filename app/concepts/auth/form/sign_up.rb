@@ -1,4 +1,4 @@
-class Auth::Form::Registration < Base::Form
+class Auth::Form::SignUp < Base::Form
   property :email
   property :password
   property :password_confirmation

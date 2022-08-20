@@ -1,9 +1,9 @@
-class Auth::Operation::Register < Base::Operation
+class Auth::Operation::SignUp < Base::Operation
   include ApiGuard::JwtAuth::JsonWebToken
   include ApiGuard::JwtAuth::RefreshJwtToken
 
   step Model(User, :new)
-  step Contract::Build(constant: Auth::Form::Registration)
+  step Contract::Build(constant: Auth::Form::SignUp)
   step Contract::Validate()
   step Contract::Persist()
   step :generate_token
