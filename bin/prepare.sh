@@ -21,7 +21,7 @@ done
 
 echo 'Preparing Backend'
 
-if !stringContain "master" "$RUN_ENV"; then
+if ! stringContain "master" "$RUN_ENV"; then
   bundle exec rake db:create
 fi
 bundle exec rake db:migrate
