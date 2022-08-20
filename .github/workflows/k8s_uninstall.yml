@@ -1,0 +1,47 @@
+name: k8s_uninstall
+
+on:
+  delete
+
+jobs:
+  uninstall:
+    if: (github.event.ref_type == 'branch') && (github.event.ref != 'master')
+    runs-on: ubuntu-latest
+    env:
+      # Bot environment. Supported: apps
+      namespace: apps
+
+      docker_repo: registry.digitalocean.com/tiksat-main-k8s
+      docker_repo_name: apps
+      suffix: ''
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 3
+
+      - name: Set environment variables
+        run: |
+          # Short name for current branch. For PRs, use target branch (base ref)
+          GIT_BRANCH=${GITHUB_BASE_REF:-${REF#refs/heads/}}
+          GIT_BRANCH=${GIT_BRANCH//\//-} # Replace / with -
+          GIT_BRANCH=${GIT_BRANCH//_/-} # Replace _ with -
+          GIT_BRANCH=${GIT_BRANCH,,} # Lower case
+          echo "GIT_BRANCH=$GIT_BRANCH" >> $GITHUB_ENV
+        env:
+          REF: ${{ github.event.ref }}
+
+      - name: Install doctl
+        uses: digitalocean/action-doctl@v2
+        with:
+          token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+
+      - name: Uninstall release
+        shell: bash
+        run: |
+          doctl registry login
+          doctl kubernetes cluster kubeconfig save main
+
+          if helm status ${{ github.event.repository.name }}${{ env.suffix }}-${{ env.namespace }}-$GIT_BRANCH --namespace helm; then 
+            helm uninstall ${{ github.event.repository.name }}${{ env.suffix }}-${{ env.namespace }}-$GIT_BRANCH --namespace helm --wait
+          fi

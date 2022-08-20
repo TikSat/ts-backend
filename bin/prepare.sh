@@ -20,6 +20,10 @@ until nc -z "$POSTGRES_HOST" "$POSTGRES_PORT"; do
 done
 
 echo 'Preparing Backend'
+
+if ! stringContain "master" "$RUN_ENV"; then
+  bundle exec rake db:create
+fi
 bundle exec rake db:migrate
 
 # Run original command

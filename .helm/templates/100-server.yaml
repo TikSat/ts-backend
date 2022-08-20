@@ -2,7 +2,8 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ $.Values.appType }}-default-env
+  name: {{ $.Values.appType }}-default-env-{{ include "apps-backend.branch" . }}
+  namespace: "{{ include "apps-backend.namespace" . }}"
 data: {}
 
 ---
@@ -10,6 +11,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: "{{ $.Values.appType }}-{{ include "apps-backend.branch" . }}"
+  namespace: "{{ include "apps-backend.namespace" . }}"
   labels:
     service: "{{ $.Values.appType }}-{{ include "apps-backend.branch" . }}"
 spec:
@@ -51,12 +53,12 @@ spec:
               containerPort: 3000
           env:
             - name: RUN_ENV
-              value: "{{ include "apps-backend.branch" . }}"
+              value: "{{ $.Values.branch }}"
             - name: DB_NAME
               value: "backend-{{ $.Values.branch }}"
           envFrom:
             - configMapRef:
-                name: {{ $.Values.appType }}-default-env
+                name: {{ $.Values.appType }}-default-env-{{ include "apps-backend.branch" . }}
                 optional: false
             - secretRef:
                 name: {{ $.Values.appType }}-env
@@ -76,6 +78,7 @@ apiVersion: 'v1'
 kind: 'Service'
 metadata:
   name: "{{ $.Values.appType }}-{{ include "apps-backend.branch" . }}"
+  namespace: "{{ include "apps-backend.namespace" . }}"
 spec:
   type: ClusterIP
   selector:
