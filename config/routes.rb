@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   namespace :api, defaults: { format: 'json' } do
     resources :categories, only: %i[index show] do
       resources :listings, only: %i[index show]
-      resources :subcategories, only: [:index], controller: 'categories', on: :member
+      resources :subcategories, only: %i[index show], controller: 'categories'
     end
 
     resources :listings, only: %i[create update destroy] do
