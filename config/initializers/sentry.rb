@@ -1,3 +1,5 @@
+return unless Rails.env.production?
+
 Sentry.init do |config|
   config.dsn = 'https://8c01243c992740e4924b6822aa4177a1@o1367671.ingest.sentry.io/6668610'
   config.breadcrumbs_logger = %i[active_support_logger http_logger]
