@@ -45,12 +45,23 @@ paths:
           description: successful
   "/api/sign_in":
     post:
-      summary: create authentication
+      summary: sign in
       tags:
       - Users
+      parameters: []
       responses:
         '200':
           description: successful
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
   "/api/sign_out":
     delete:
       summary: delete authentication
@@ -343,10 +354,22 @@ paths:
     post:
       summary: create registration
       tags:
-      - Users
+      - User
+      - Auth
+      parameters: []
       responses:
         '200':
-          description: successful
+          description: user created
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email: string
+                password: string
+                password_confirmation: string
+        required: true
   "/api/tokens":
     post:
       summary: create token

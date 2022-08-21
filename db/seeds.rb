@@ -1,5 +1,7 @@
 FactoryBot.reload
 
+# FIXME: Clear DB on seeding
+
 2.times do
   cat = FactoryBot.create(:category, :with_custom_fields, :with_listings)
   FactoryBot.create_list(:category, 2, :with_custom_fields, :with_listings, parent_id: cat.id)

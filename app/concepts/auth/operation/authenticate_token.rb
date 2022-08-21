@@ -1,4 +1,4 @@
-class Auth::Operation::Authenticate < Base::Operation
+class Auth::Operation::AuthenticateToken < Base::Operation
   attr_reader :token, :current_user
 
   step :auth
