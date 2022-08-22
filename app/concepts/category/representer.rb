@@ -6,6 +6,6 @@ class Category::Representer < Base::Representer
   property :slug
   property :image_small, getter: ->(represented:, **) { represented.image_url(:small) }
 
-  # collection :subcategories, decorator: CategoryRepresenter
+  collection :subcategories, decorator: Category::Representer
   # collection :custom_fields, decorator: CustomFieldRepresenter
 end

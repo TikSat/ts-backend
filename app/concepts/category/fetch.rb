@@ -5,7 +5,7 @@ class Category::Fetch < Base::Fetch
 
   def build_initial_scope(ctx, params:, **)
     scope = params[:category_id].present? ? Category.find(params[:category_id]).subcategories : Category.all
-    ctx[:scope] = scope.includes(:custom_fields)
+    ctx[:scope] = scope.includes(:custom_fields, :subcategories, subcategories: :subcategories)
   end
 
   def apply_root(ctx, params:, scope:, **)
