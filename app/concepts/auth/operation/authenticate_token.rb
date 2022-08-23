@@ -27,7 +27,7 @@ class Auth::Operation::AuthenticateToken < Base::Operation
   end
 
   def decoded_token
-    @decoded_token = decode(token, true)
+    @decoded_token = decode(token, false)
   end
 
   def find_resource_from_token
