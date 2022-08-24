@@ -47,8 +47,8 @@ class Adapters::Api < Trailblazer::Endpoint::Adapter::API
 
   def handle_invalid_data(_ctx, errors:, domain_ctx:, **)
     errors.details = []
-    errors.details << domain_ctx[:'contract.default']&.errors.messages if domain_ctx[:'contract.default']&.errors.present?
-    errors.details << domain_ctx[:model]&.errors if domain_ctx[:model]&.errors.present?
+    errors.details << domain_ctx[:'contract.default'].errors.messages if domain_ctx[:'contract.default']&.errors.present?
+    errors.details << domain_ctx[:model].errors if domain_ctx[:model]&.errors.present?
     errors.message = 'The submitted data is invalid.'
     true
   end

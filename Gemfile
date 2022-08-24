@@ -18,6 +18,7 @@ gem 'pagy'
 gem 'pg', '~> 1.1'
 gem 'pg_search', '2.3.6'
 gem 'puma', '~> 5.0'
+gem 'rack-cors'
 gem 'rails', '~> 7.0.2', '>= 7.0.2.3'
 gem 'redis', '~> 4.0'
 gem 'roar'
@@ -31,7 +32,6 @@ gem 'sidekiq'
 gem 'trailblazer-endpoint'
 gem 'trailblazer-rails'
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
-gem 'rack-cors'
 
 group :development, :test do
   gem 'annotate'
