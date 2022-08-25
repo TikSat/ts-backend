@@ -1,7 +1,8 @@
 require 'representable/decorator'
 
 class Base::Representer < Representable::Decorator
-  include Representable::JSON
+  feature Base::Representer::All
+
   property :type, getter: ->(represented:, **) { represented.class.name&.underscore }
   property :decorator, getter: ->(decorator:, **) { decorator.class.name }
 

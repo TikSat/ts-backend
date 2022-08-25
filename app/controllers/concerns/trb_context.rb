@@ -39,7 +39,7 @@ module TrbContext
     # this is going to Trb operation
     def self.options_for_domain_ctx(_ctx, controller:, **)
       {
-        params: controller.params.permit!
+        params: controller.params.permit!.to_h.deep_symbolize_keys
       }
     end
 
@@ -49,12 +49,13 @@ module TrbContext
 
     def success_render(ctx)
       nctx = ctx[:endpoint_ctx]
+      params = ctx[:params]
       pagy_headers_merge(nctx[:pagy]) if ctx[:pagy]
-      render json: nctx[:representer].to_hash(params[:response] || {}), status: ctx[:status]
+      render json: nctx[:representer].to_response(params[:response]), status: ctx[:status]
     end
 
     def error_render(ctx)
-      render json: ctx[:representer].to_hash(params[:response] || {}), status: ctx[:status]
+      render json: ctx[:representer].to_response(params[:response]), status: ctx[:status]
     end
   end
 end

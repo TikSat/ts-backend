@@ -8,10 +8,16 @@ class Adapters::Api < Trailblazer::Endpoint::Adapter::API
   step :render_errors, after: :protocol_failure, magnetic_to: :fail_fast, Output(:success) => Track(:fail_fast), id: :render_protocol_failure_errors
 
   def render(ctx, domain_ctx:, pagination: false, representer: Base::Representer::Success, **)
-    pagy, items = if pagination
-                    paginate(params: domain_ctx[:params], scope: domain_ctx[:scope])
-                  else
+    to_paginate = domain_ctx[:params][:pagination] || pagination
+
+    pagy, items = if domain_ctx[:model].present?
                     [nil, domain_ctx[:model]]
+                  else
+                    if to_paginate.true?
+                      paginate(params: domain_ctx[:params], scope: domain_ctx[:scope])
+                    else
+                      [nil, domain_ctx[:scope].to_a]
+                    end
                   end
     decorator = representer || representer_for(items)
     ctx[:pagy] = pagy
