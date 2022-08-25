@@ -10,14 +10,17 @@ class Adapters::Api < Trailblazer::Endpoint::Adapter::API
   def render(ctx, domain_ctx:, pagination: false, representer: Base::Representer::Success, **)
     to_paginate = domain_ctx[:params][:pagination] || pagination
 
-    pagy, items = if domain_ctx[:model].present?
-                    [nil, domain_ctx[:model]]
-                  elsif domain_ctx[:scope].present?
+    items = domain_ctx[:model] || domain_ctx[:scope]
+    raise 'Nothing to represent!' unless items
+
+    pagy, items = if items.is_a?(ActiveRecord::Relation)
                     if to_paginate.true?
-                      paginate(params: domain_ctx[:params], scope: domain_ctx[:scope])
+                      paginate(params: domain_ctx[:params], scope: items)
                     else
-                      [nil, domain_ctx[:scope].to_a]
+                      [nil, items.to_a]
                     end
+                  else
+                    [nil, items]
                   end
     decorator = representer || representer_for(items)
     ctx[:pagy] = pagy
