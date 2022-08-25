@@ -11,6 +11,14 @@ FactoryBot.reload
   end
 end
 
+listings = []
+cat_id = Category.first.id
+100_000.times do
+  listings << FactoryBot.attributes_for(:listing, category_id: cat_id)
+end
+
+Listing.upsert_all(listings)
+
 FactoryBot.create(:user_with_profiles)
 
 puts 'DB seeded'

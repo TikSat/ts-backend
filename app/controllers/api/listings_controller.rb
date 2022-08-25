@@ -16,6 +16,10 @@ class Api::ListingsController < ApplicationController
                            representer: controller_representer
   end
 
+  def ids
+    render json: Listing.where(category_id: params[:category_id]).ids
+  end
+
   def public_actions
     %i[index show]
   end

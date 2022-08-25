@@ -7,7 +7,12 @@ Rails.application.routes.draw do
 
   namespace :api, defaults: { format: 'json' } do
     resources :categories, only: %i[index show] do
-      resources :listings, only: %i[index show]
+      collection do
+        get :ids
+      end
+      resources :listings, only: %i[index show] do
+        get :ids, on: :collection
+      end
       resources :subcategories, only: %i[index show], controller: 'categories'
     end
 

@@ -38,7 +38,7 @@ class Adapters::Api < Trailblazer::Endpoint::Adapter::API
   end
 
   def paginate(params:, scope:)
-    pagy = Pagy.new(count: scope.count, page: params[Pagy::DEFAULT[:page_param]])
+    pagy = Pagy.new(count: scope.count, page: params[Pagy::DEFAULT[:page_param]], items: params[:items])
     items = pagy_get_items(scope, pagy)
     [pagy, items.to_a]
   end
