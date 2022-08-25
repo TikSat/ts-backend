@@ -12,7 +12,7 @@ class Adapters::Api < Trailblazer::Endpoint::Adapter::API
 
     pagy, items = if domain_ctx[:model].present?
                     [nil, domain_ctx[:model]]
-                  else
+                  elsif domain_ctx[:scope].present?
                     if to_paginate.true?
                       paginate(params: domain_ctx[:params], scope: domain_ctx[:scope])
                     else
