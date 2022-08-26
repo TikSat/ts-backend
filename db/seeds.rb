@@ -12,9 +12,10 @@ FactoryBot.reload
 end
 
 listings = []
-cat_id = Category.first.id
-100_000.times do
-  listings << FactoryBot.attributes_for(:listing, category_id: cat_id)
+
+1000.times do
+  cat_id = Category.ids.sample
+  listings << FactoryBot.attributes_for(:listing, :with_custom_fields_values, category_id: cat_id)
 end
 
 Listing.upsert_all(listings)
