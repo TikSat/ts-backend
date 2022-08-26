@@ -5,7 +5,7 @@ class Api::Admin::CategoriesController < Api::Admin::BaseController
                                    { subcategories: %i[subcategories custom_fields] }).root
     return unless stale?(categories)
 
-    present categories
+    render json: categories
   end
 
   def show
