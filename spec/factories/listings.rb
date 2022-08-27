@@ -7,6 +7,7 @@
 #  desc         :text
 #  expires_at   :datetime
 #  field_values :jsonb
+#  slug         :string
 #  title        :string
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
@@ -18,6 +19,7 @@
 #  idx_field_values               ((((field_values ->> 'field_id'::text))::uuid))
 #  index_listings_on_category_id  (category_id)
 #  index_listings_on_profile_id   (profile_id)
+#  index_listings_on_slug         (slug) UNIQUE
 #  index_listings_on_title        (title)
 #
 FactoryBot.define do

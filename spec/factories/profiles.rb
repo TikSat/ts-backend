@@ -18,9 +18,14 @@
 #  name         :string
 #  postal_code  :string
 #  profile_type :string           default("Profile::User")
+#  slug         :string
 #  time_zone    :string
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
+#
+# Indexes
+#
+#  index_profiles_on_slug  (slug) UNIQUE
 #
 FactoryBot.define do
   factory :profile do

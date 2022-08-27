@@ -7,7 +7,7 @@ class Api::CategoriesController < ApplicationController
   end
 
   def ids
-    hash = ActiveRecord::Base.connection.execute('SELECT array_agg(listings.id) as listings_ids, listings.category_id from listings group by listings.category_id')
+    hash = ActiveRecord::Base.connection.execute('SELECT array_agg(listings.slug) as listings_ids, categories.slug as category_id from listings INNER JOIN categories ON listings.category_id = categories.id group by categories.slug')
     render json: hash
   end
 

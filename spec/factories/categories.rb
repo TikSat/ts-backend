@@ -11,6 +11,10 @@
 #  updated_at :datetime         not null
 #  parent_id  :uuid
 #
+# Indexes
+#
+#  index_categories_on_slug  (slug) UNIQUE
+#
 FactoryBot.define do
   factory :category do
     name { Faker::Book.title }

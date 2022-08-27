@@ -11,6 +11,10 @@
 #  updated_at :datetime         not null
 #  parent_id  :uuid
 #
+# Indexes
+#
+#  index_categories_on_slug  (slug) UNIQUE
+#
 class Category < ApplicationRecord
   include CategoryImageUploader::Attachment(:image)
   extend FriendlyId
