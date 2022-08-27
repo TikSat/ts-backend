@@ -9,6 +9,7 @@ class Auth::Operation::AuthenticateToken < Base::Operation
     return true if ctx[:skip_auth]
 
     @token = request.headers['Authorization']&.split('Bearer ')&.last
+    return false unless token
 
     authenticate_token
 
@@ -27,7 +28,7 @@ class Auth::Operation::AuthenticateToken < Base::Operation
   end
 
   def decoded_token
-    @decoded_token = decode(token, false)
+    @decoded_token = decode(token, true)
   end
 
   def find_resource_from_token

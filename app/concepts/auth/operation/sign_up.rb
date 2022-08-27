@@ -11,7 +11,7 @@ class Auth::Operation::SignUp < Base::Operation
   private
 
   def generate_token(ctx, model:, **)
-    ctx[:token], ctx[:refresh_token] = jwt_and_refresh_token(model, 'user', true)
+    ctx[:token], ctx[:refresh_token] = jwt_and_refresh_token(model, 'user')
     ctx[:token_expire_at] = token_expire_at.to_s
   end
 end

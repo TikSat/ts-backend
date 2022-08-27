@@ -1,25 +1,19 @@
 class Api::TokensController < ApplicationController
-  before_action :find_refresh_token, only: [:create]
+  _endpoint :create, Auth::Operation::RefreshTokens
 
   def create
-    create_token_and_set_header(current_resource, resource_name)
-
-    @refresh_token.destroy
-    blacklist_token if ApiGuard.blacklist_token_after_refreshing
-
-    render_success(message: I18n.t('api_guard.access_token.refreshed'))
+    endpoint :create, skip_auth: true
   end
 
-  private
+  def success_render(ctx)
+    nctx = ctx[:endpoint_ctx][:domain_ctx]
+    token = nctx[:token]
+    refresh_token = nctx[:refresh_token]
+    token_expire_at = nctx[:token_expire_at]
 
-  def find_refresh_token
-    refresh_token_from_header = request.headers['Refresh-Token']
-
-    if refresh_token_from_header
-      @refresh_token = find_refresh_token_of(current_resource, refresh_token_from_header)
-      return render_error(401, message: I18n.t('api_guard.refresh_token.invalid')) unless @refresh_token
-    else
-      render_error(401, message: I18n.t('api_guard.refresh_token.missing'))
-    end
+    render json: { token:,
+                   refresh_token:,
+                   token_expire_at: },
+           status: ctx[:status]
   end
 end

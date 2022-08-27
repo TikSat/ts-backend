@@ -11,7 +11,6 @@ class Adapters::Api < Trailblazer::Endpoint::Adapter::API
     to_paginate = domain_ctx[:params][:pagination] || pagination
 
     items = domain_ctx[:model] || domain_ctx[:scope]
-    raise 'Nothing to represent!' unless items
 
     pagy, items = if items.is_a?(ActiveRecord::Relation)
                     if to_paginate.true?
