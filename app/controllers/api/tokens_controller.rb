@@ -14,6 +14,6 @@ class Api::TokensController < ApplicationController
     render json: { token:,
                    refresh_token:,
                    token_expire_at: },
-           status: ctx[:status]
+           status: :ok
   end
 end
