@@ -1,5 +1,5 @@
 class Listing::Operation::Destroy < Base::Operation
-  step Model(Listing, :find_by)
+  step Model(Listing, :find)
   step :destroy
 
   private

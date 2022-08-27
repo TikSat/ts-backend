@@ -6,9 +6,9 @@ RSpec.describe 'api/listings', type: :request do
   let(:token) { jwt_and_refresh_token(user, 'user') }
   let(:Authorization) { 'Bearer ' + token.first }
   let(:category) { create :category }
-  let(:category_id) { category.id }
+  let(:category_id) { category.slug }
   let(:profile_id) { profile.id }
-  let(:listing_params) { { category_id:, profile_id:, title: 'Cool' } }
+  let(:listing_params) { { category_id: category.id, profile_id:, title: 'Cool' } }
 
   path '/api/listings' do
     post('create listing') do
@@ -42,7 +42,7 @@ RSpec.describe 'api/listings', type: :request do
 
   path '/api/listings/{id}' do
     let(:listing) { create :listing, profile_id: user.current_profile.id }
-    let(:id) { listing.id }
+    let(:id) { listing.slug }
     let(:listing_params) { { title: 'Cool too' } }
 
     patch('update listing') do
@@ -124,8 +124,8 @@ RSpec.describe 'api/listings', type: :request do
     get('show listing') do
       tags 'Listings'
 
-      let(:listing) { create :listing, category_id: }
-      let(:id) { listing.id }
+      let(:listing) { create :listing, category_id: category.id }
+      let(:id) { listing.slug }
 
       response(200, 'successful') do
         after do |example|
