@@ -12,9 +12,8 @@ Rails.application.routes.draw do
       collection do
         get :ids
       end
-      resources :listings, only: %i[index show] do
-        get :ids, on: :collection
-      end
+
+      resources :listings, only: %i[index show]
       resources :subcategories, only: %i[index show], controller: 'categories'
     end
 
