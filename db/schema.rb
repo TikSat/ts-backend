@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_08_27_101822) do
+ActiveRecord::Schema[7.0].define(version: 2022_08_31_120422) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -23,6 +23,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_27_101822) do
     t.uuid "parent_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "listings_count", default: 0
     t.index ["slug"], name: "index_categories_on_slug", unique: true
   end
 
@@ -64,7 +65,10 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_27_101822) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "slug"
+    t.float "price", default: 0.0
+    t.jsonb "image_data", default: {}
     t.index "(((field_values ->> 'field_id'::text))::uuid)", name: "idx_field_values"
+    t.index ["category_id", "price"], name: "index_listings_on_category_id_and_price"
     t.index ["category_id"], name: "index_listings_on_category_id"
     t.index ["profile_id"], name: "index_listings_on_profile_id"
     t.index ["slug"], name: "index_listings_on_slug", unique: true
