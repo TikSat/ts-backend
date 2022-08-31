@@ -14,3 +14,5 @@ Shrine.plugin :backgrounding
 Shrine.plugin :store_dimensions
 Shrine.plugin :validation_helpers
 Shrine.plugin :derivatives
+Shrine.plugin :remote_url, max_size: 20 * 1024 * 1024
+Shrine.plugin :determine_mime_type

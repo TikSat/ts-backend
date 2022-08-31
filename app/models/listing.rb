@@ -7,6 +7,8 @@
 #  desc         :text
 #  expires_at   :datetime
 #  field_values :jsonb
+#  image_data   :jsonb
+#  price        :float            default(0.0)
 #  slug         :string
 #  title        :string
 #  created_at   :datetime         not null
@@ -16,15 +18,18 @@
 #
 # Indexes
 #
-#  idx_field_values               ((((field_values ->> 'field_id'::text))::uuid))
-#  index_listings_on_category_id  (category_id)
-#  index_listings_on_profile_id   (profile_id)
-#  index_listings_on_slug         (slug) UNIQUE
-#  index_listings_on_title        (title)
+#  idx_field_values                         ((((field_values ->> 'field_id'::text))::uuid))
+#  index_listings_on_category_id            (category_id)
+#  index_listings_on_category_id_and_price  (category_id,price)
+#  index_listings_on_profile_id             (profile_id)
+#  index_listings_on_slug                   (slug) UNIQUE
+#  index_listings_on_title                  (title)
 #
 class Listing < ApplicationRecord
+  include CategoryImageUploader::Attachment.new(:image)
   include PgSearch::Model
-  belongs_to :category
+
+  belongs_to :category, counter_cache: true
   belongs_to :author, class_name: 'Profile', foreign_key: :profile_id
   has_many :custom_fields, through: :category
 
@@ -32,6 +37,8 @@ class Listing < ApplicationRecord
   friendly_id :title, use: :slugged
 
   before_create :set_expires_at
+
+  store_accessor :field_values
 
   pg_search_scope :search_by_title,
                   against: :title,
