@@ -8,6 +8,7 @@ class Listing::Representer < Base::Representer
   property :category
   property :fields, exec_context: :decorator
   property :image_url
+  property :price
 
   # collection :custom_fields, exec_context: :decorator
 
