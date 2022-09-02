@@ -33,7 +33,9 @@ spec:
         - name: service
           image: "{{ $.Values.image }}"
           command:
-            - bundle exec sidekiq -C config/sidekiq.yml
+            - /bin/sh
+            - -c
+            - 'bundle exec sidekiq -C config/sidekiq.yml'
           livenessProbe:
             exec:
               command:
