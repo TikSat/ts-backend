@@ -9,8 +9,9 @@ class Listing::Representer < Base::Representer
   property :fields, exec_context: :decorator
   property :image_url
   property :price
-
-  # collection :custom_fields, exec_context: :decorator
+  property :created_at
+  property :updated_at
+  collection :images, decorator: Listing::Image::Representer
 
   def representer_for(object)
     "#{object.class.name}::Representer".constantize

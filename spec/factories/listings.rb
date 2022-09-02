@@ -31,8 +31,14 @@ FactoryBot.define do
     association :category, factory: :category
     desc { Faker::ChuckNorris.fact }
     title { Faker::Game.title }
-    price { rand(1_000_000) }
-    image_remote_url { 'https://picsum.photos/300/200' }
+    price { rand(1_000_000_000) }
+    image_remote_url { 'https://picsum.photos/600/450' }
+    images_attributes do
+      [
+        { image_remote_url: 'https://picsum.photos/600/450' },
+        { image_remote_url: 'https://picsum.photos/600/450' }
+      ]
+    end
 
     after(:build) do |listing|
       listing.category.all_custom_fields.each do |field|

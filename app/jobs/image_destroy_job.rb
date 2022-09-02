@@ -4,5 +4,8 @@ class ImageDestroyJob < ApplicationJob
 
     attacher = attacher_class.from_data(data)
     attacher.destroy
+  rescue StandardError => e
+    Sentry.capture_exception(e)
+    # attachment has changed or the record has been deleted, nothing to do
   end
 end

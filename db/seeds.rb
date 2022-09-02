@@ -9,6 +9,9 @@ FactoryBot.create(:user_with_profiles)
   category = Category.children.sample
   author = Profile.all.sample
   FactoryBot.create(:listing, category:, author:)
+rescue StandardError => e
+  pp e
+  next
 end
 
 puts 'DB seeded'
