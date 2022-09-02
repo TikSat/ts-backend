@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ $.Values.appType }}-default-env-{{ include "apps-backend.branch" . }}
+  name: {{ $.Values.appType }}-default-env-{{ include "apps-backend.branch" . }}-sidekiq
   namespace: "{{ include "apps-backend.namespace" . }}"
 data:
   REDIS_URL: "redis://{{ $.Values.appType }}-{{ include "apps-backend.branch" . }}-redis.{{ include "apps-backend.namespace" . }}.svc.cluster.local:6379/0"
@@ -11,41 +11,40 @@ data:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: "{{ $.Values.appType }}-{{ include "apps-backend.branch" . }}"
+  name: "{{ $.Values.appType }}-{{ include "apps-backend.branch" . }}-sidekiq"
   namespace: "{{ include "apps-backend.namespace" . }}"
   labels:
-    service: "{{ $.Values.appType }}-{{ include "apps-backend.branch" . }}"
+    service: "{{ $.Values.appType }}-{{ include "apps-backend.branch" . }}-sidekiq"
 spec:
-  replicas: 2
+  replicas: 1
   strategy:
     rollingUpdate:
       maxUnavailable: 1
   minReadySeconds: 15
   selector:
     matchLabels:
-      service: "{{ $.Values.appType }}-{{ include "apps-backend.branch" . }}"
+      service: "{{ $.Values.appType }}-{{ include "apps-backend.branch" . }}-sidekiq"
   template:
     metadata:
       labels:
-        service: "{{ $.Values.appType }}-{{ include "apps-backend.branch" . }}"
-        appType: "{{ $.Values.appType }}"
+        service: "{{ $.Values.appType }}-{{ include "apps-backend.branch" . }}-sidekiq"
     spec:
       containers:
         - name: service
           image: "{{ $.Values.image }}"
+          command:
+            - bundle exec sidekiq -C config/sidekiq.yml
           livenessProbe:
             exec:
               command:
-                - "/bin/sh"
-                - "/app/bin/liveness.sh"
+                - "/bin/true"
             initialDelaySeconds: 30
             periodSeconds: 30
             timeoutSeconds: 30
           readinessProbe:
             exec:
               command:
-                - "/bin/sh"
-                - "/app/bin/readiness.sh"
+                - "/bin/true"
             initialDelaySeconds: 30
             periodSeconds: 30
             timeoutSeconds: 30
@@ -73,17 +72,3 @@ spec:
               memory: "768Mi"
               cpu: "1000m"
               ephemeral-storage: "256Mi"
-
----
-apiVersion: 'v1'
-kind: 'Service'
-metadata:
-  name: "{{ $.Values.appType }}-{{ include "apps-backend.branch" . }}"
-  namespace: "{{ include "apps-backend.namespace" . }}"
-spec:
-  type: ClusterIP
-  selector:
-    service: "{{ $.Values.appType }}-{{ include "apps-backend.branch" . }}"
-  ports:
-    - port: 80
-      targetPort: 3000

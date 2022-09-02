@@ -11,6 +11,16 @@ services:
     environment:
       RAILS_MASTER_KEY: 'c7d0e101109c3cc19401b3e7e1958f75'
 
+  sidekiq:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: sidekiq
+    command:
+      - bundle exec sidekiq -C config/sidekiq.yml
+    environment:
+      RAILS_MASTER_KEY: 'c7d0e101109c3cc19401b3e7e1958f75'
+
   postgres:
     container_name: postgres
     image: postgres:14
