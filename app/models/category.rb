@@ -59,7 +59,7 @@ class Category < ApplicationRecord
             INNER JOIN category_tree c ON c.id = ccf.category_id
           )
 
-        SELECT DISTINCT * from fields
+        SELECT DISTINCT ON (fields.id) * from fields
       SQL
 
     Rails.cache.fetch("#{cache_key_with_version}/custom_fields", expires_in: 12.hours) do
