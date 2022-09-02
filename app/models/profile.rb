@@ -35,9 +35,9 @@ class Profile < ApplicationRecord
   extend FriendlyId
   friendly_id :full_name, use: :slugged
 
-  has_many :user_profiles
+  has_many :user_profiles, dependent: :destroy
   has_many :users, through: :user_profiles
-  has_many :listings
+  has_many :listings, dependent: :destroy
 
   def full_name
     is_a?(Profile::User) ? "#{first_name} #{last_name}" : name

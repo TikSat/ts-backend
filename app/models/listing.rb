@@ -32,7 +32,7 @@ class Listing < ApplicationRecord
   belongs_to :category, counter_cache: true
   belongs_to :author, class_name: 'Profile', foreign_key: :profile_id
   has_many :custom_fields, through: :category
-  has_many :images, class_name: 'Listing::Image'
+  has_many :images, class_name: 'Listing::Image', dependent: :destroy
 
   accepts_nested_attributes_for :images
 
