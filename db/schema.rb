@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_08_31_120422) do
+ActiveRecord::Schema[7.0].define(version: 2022_09_02_100614) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -52,6 +52,12 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_31_120422) do
     t.index ["slug", "sluggable_type", "scope"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type_and_scope", unique: true
     t.index ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type"
     t.index ["sluggable_type", "sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_type_and_sluggable_id"
+  end
+
+  create_table "listing_images", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "listing_id"
+    t.jsonb "image_data"
+    t.index ["listing_id"], name: "index_listing_images_on_listing_id"
   end
 
   create_table "listings", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -143,5 +149,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_31_120422) do
     t.index ["phone"], name: "index_users_on_phone", unique: true
   end
 
+  add_foreign_key "listing_images", "listings"
   add_foreign_key "refresh_tokens", "users"
 end

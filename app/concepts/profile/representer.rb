@@ -8,4 +8,5 @@ class Profile::Representer < Base::Representer
   property :language
   property :currency
   property :time_zone
+  property :full_name
 end

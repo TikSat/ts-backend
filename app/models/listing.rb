@@ -26,15 +26,18 @@
 #  index_listings_on_title                  (title)
 #
 class Listing < ApplicationRecord
-  include CategoryImageUploader::Attachment.new(:image)
+  include ListingImageUploader::Attachment.new(:image)
   include PgSearch::Model
 
   belongs_to :category, counter_cache: true
   belongs_to :author, class_name: 'Profile', foreign_key: :profile_id
   has_many :custom_fields, through: :category
+  has_many :images, class_name: 'Listing::Image', dependent: :destroy
+
+  accepts_nested_attributes_for :images
 
   extend FriendlyId
-  friendly_id :title, use: :slugged
+  friendly_id :slug_candidates, use: :slugged
 
   before_create :set_expires_at
 
@@ -48,6 +51,12 @@ class Listing < ApplicationRecord
 
   pg_search_scope :search_by_desc,
                   against: :desc
+
+  def slug_candidates
+    slugs = [:title]
+    slugs << [:title, category.name]
+    slugs
+  end
 
   private
 

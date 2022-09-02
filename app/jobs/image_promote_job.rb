@@ -6,7 +6,11 @@ class ImagePromoteJob < ApplicationJob
     attacher = attacher_class.retrieve(model: record, name:, file: file_data)
     attacher.create_derivatives # calls derivatives processor
     attacher.atomic_promote
-  rescue Shrine::AttachmentChanged, ActiveRecord::RecordNotFound
+  rescue Shrine::AttachmentChanged, ActiveRecord::RecordNotFound => e
+    Sentry.capture_exception(e)
     # attachment has changed or the record has been deleted, nothing to do
+  rescue StandardError => e
+    Sentry.capture_exception(e)
+    raise e
   end
 end
