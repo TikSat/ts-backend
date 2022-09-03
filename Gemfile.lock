@@ -152,7 +152,6 @@ GEM
       activesupport (>= 5.0.0)
     faker (2.23.0)
       i18n (>= 1.8.11, < 2)
-    faster_s3_url (1.0.0)
     fastimage (2.2.6)
     ffi (1.15.5)
     foreman (0.87.2)
@@ -404,7 +403,6 @@ DEPENDENCIES
   dry-validation
   factory_bot
   faker
-  faster_s3_url
   fastimage
   foreman
   friendly_id
