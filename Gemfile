@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 gem 'api_guard'
+gem 'aws-sdk-s3'
 gem 'bcrypt'
 gem 'bootsnap', require: false
 gem 'dotenv'
