@@ -1,11 +1,14 @@
 require 'shrine'
-require 'shrine/storage/s3'
 if Rails.env.test?
+  require 'shrine/storage/memory'
+
   Shrine.storages = {
     cache: Shrine::Storage::Memory.new(prefix: 'cache'), # temporary
     store: Shrine::Storage::Memory.new(prefix: 'store') # permanent
   }
 else
+  require 'shrine/storage/s3'
+
   bucket = Rails.env.production? ? 'tiksat-prod' : 'tiksat-dev'
   s3_options = {
     bucket:, # required
