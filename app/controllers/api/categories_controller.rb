@@ -8,8 +8,7 @@ class Api::CategoriesController < ApplicationController
 
   # TODO: move to operations | CAST VALUES FUCK IT!!!
   def ids
-    hash = ActiveRecord::Base.connection.exec_query('SELECT array_agg(listings.slug::text) as listings_ids, categories.slug as category_id from listings INNER JOIN categories ON listings.category_id = categories.id group by categories.slug')
-    render json: hash.cast_values
+    render json: Category.all.pluck(:slug)
   end
 
   def breadcrumbs

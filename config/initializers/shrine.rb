@@ -1,9 +1,19 @@
 require 'shrine'
-require 'shrine/storage/file_system'
+require 'shrine/storage/s3'
+
+bucket = Rails.env.production? ? 'tiksat-prod' : 'tiksat-dev'
+s3_options = {
+  bucket:, # required
+  region: 'us-east-1', # required
+  access_key_id: ENV.fetch('S3_ACCESS_KEY'),
+  secret_access_key: ENV.fetch('S3_SECRET_KEY'),
+  endpoint: 'https://fra1.digitaloceanspaces.com',
+  public: true
+}
 
 Shrine.storages = {
-  cache: Shrine::Storage::FileSystem.new('public', prefix: 'uploads/cache'), # temporary
-  store: Shrine::Storage::FileSystem.new('public', prefix: 'uploads') # permanent
+  cache: Shrine::Storage::S3.new(prefix: 'cache', **s3_options), # temporary
+  store: Shrine::Storage::S3.new(prefix: 'store', **s3_options) # permanent
 }
 
 Shrine.plugin :activerecord
