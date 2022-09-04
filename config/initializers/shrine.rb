@@ -13,8 +13,8 @@ else
   s3_options = {
     bucket:, # required
     region: 'us-east-1', # required
-    access_key_id: ENV.fetch('S3_ACCESS_KEY'),
-    secret_access_key: ENV.fetch('S3_SECRET_KEY'),
+    access_key_id: ENV.fetch('S3_ACCESS_KEY', ''),
+    secret_access_key: ENV.fetch('S3_SECRET_KEY', ''),
     endpoint: 'https://fra1.digitaloceanspaces.com',
     public: true
   }
