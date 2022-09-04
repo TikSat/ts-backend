@@ -1,20 +1,17 @@
-require 'image_processing/mini_magick'
+require 'image_processing/vips'
 
 class ApplicationUploader < Shrine
-  # define versions in each uploaders ot use defaults
-  VERSIONS = {
-    large: [300, 300],
-    medium: [200, 200],
-    small: [100, 100]
-  }.freeze
-
   Attacher.derivatives do |original|
-    magick = ImageProcessing::MiniMagick.source(original)
+    vips = ImageProcessing::Vips.source(original)
     # rubocop:disable Style/HashTransformValues
-    VERSIONS.each_with_object({}) do |(version, sizes), memo|
-      memo[version] = magick.resize_to_limit!(*sizes)
+    shrine_class.versions.each_with_object({}) do |(version, sizes), memo|
+      memo[version] = vips.resize_to_fit!(*sizes)
     end
     # rubocop:enable Style/HashTransformValues
+  end
+
+  def self.versions
+    raise 'Define versions in uploader!'
   end
 
   Attacher.promote_block do

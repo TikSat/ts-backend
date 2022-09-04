@@ -27,7 +27,7 @@ RUN useradd -u 1000 -s /bin/bash -M -d /app app && \
     sed -i '/ru_RU.UTF-8/s/^# //g' /etc/locale.gen && locale-gen && \
     \
     apt-get install -y --no-install-recommends \
-    ca-certificates libxml2-dev libxslt-dev libgcrypt-dev file curl netcat-openbsd wget gnupg make postgresql-server-dev-all git && \
+    ca-certificates libxml2-dev libxslt-dev libgcrypt-dev file curl netcat-openbsd wget gnupg make postgresql-server-dev-all git libvips && \
     \
     rm -rf /var/lib/apt/lists/* && rm -rf /var/lib/apt/lists.d/* && apt-get autoremove -y && apt-get clean && apt-get autoclean && \
     mkdir -p /app/bin && \

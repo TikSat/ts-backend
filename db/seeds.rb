@@ -1,11 +1,17 @@
 FactoryBot.reload
 
+time_start = Time.now
+puts "Seed started at #{time_start.strftime('%H:%M:%S %:z')}"
+
 require Rails.root.join('db/seeds/custom_fields').to_s
+puts "Categories seeded at #{Time.now.strftime('%H:%M:%S %:z')}"
 require Rails.root.join('db/seeds/categories').to_s
+puts "Custom fields seeded at #{Time.now.strftime('%H:%M:%S %:z')}"
 
-FactoryBot.create(:user_with_profiles)
+FactoryBot.create_list(:user_with_profiles, 10)
+puts "Profiles seeded at #{Time.now.strftime('%H:%M:%S %:z')}"
 
-1000.times do
+1000.times do |i|
   category = Category.children.sample
   author = Profile.all.sample
   FactoryBot.create(:listing, category:, author:,
@@ -14,9 +20,13 @@ FactoryBot.create(:user_with_profiles)
                                 { image_remote_url: 'https://picsum.photos/600/450' },
                                 { image_remote_url: 'https://picsum.photos/600/450' }
                               ])
+  puts "Listing ##{i} of 1000 created"
 rescue StandardError => e
   pp e
   next
 end
 
-puts 'DB seeded'
+time_end = Time.now
+diff = (time_end - time_start)
+
+puts "DB seeded in #{diff} s."

@@ -31,7 +31,7 @@ FactoryBot.define do
     association :category, factory: :category
     desc { Faker::ChuckNorris.fact }
     title { Faker::Game.title }
-    price { rand(1_000_000_000) }
+    price { rand(1_000_000) }
 
     after(:build) do |listing|
       listing.category.all_custom_fields.each do |field|

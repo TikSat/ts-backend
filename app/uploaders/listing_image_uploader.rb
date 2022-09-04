@@ -1,7 +1,10 @@
 class ListingImageUploader < ApplicationUploader
-  VERSIONS = {
-    large: [200, 300],
-    medium: [100, 200],
-    small: [50, 150]
-  }.freeze
+  def self.versions
+    {
+      lg: [640, 480],
+      md: [320, 240],
+      sm: [200, 150],
+      xs: [100, 75]
+    }
+  end
 end

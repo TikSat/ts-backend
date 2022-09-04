@@ -5,9 +5,12 @@ class Listing::Representer < Base::Representer
   property :slug
   property :expires_at
   property :author, decorator: ->(decorator:, input:, **) { decorator.representer_for(input) }
-  property :category
+  property :category, decorator: Category::Representer
   property :fields, exec_context: :decorator
-  property :image_url
+  property :image_extra_small, getter: ->(represented:, **) { represented.image_url(:xs) }
+  property :image_small, getter: ->(represented:, **) { represented.image_url(:sm) }
+  property :image_medium, getter: ->(represented:, **) { represented.image_url(:md) }
+  property :image_large, getter: ->(represented:, **) { represented.image_url(:lg) }
   property :price
   property :created_at
   property :updated_at
