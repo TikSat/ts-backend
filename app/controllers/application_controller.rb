@@ -1,4 +1,4 @@
-class ApplicationController < ActionController::API
+class ApplicationController < ActionController::Base
   DEFAULT_ACTIONS = %i[index show create update destroy].freeze
 
   include TrbContext

@@ -3,10 +3,13 @@ ruby '3.1.2'
 
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
+gem 'activeadmin'
+gem 'active_admin_theme'
 gem 'api_guard'
 gem 'aws-sdk-s3'
 gem 'bcrypt'
 gem 'bootsnap', require: false
+gem 'devise'
 gem 'dotenv'
 gem 'dry-validation'
 gem 'factory_bot' # move it to dev group after release
@@ -20,19 +23,22 @@ gem 'jwt'
 gem 'multi_json'
 gem 'pagy'
 gem 'pg', '~> 1.1'
+gem 'pghero'
 gem 'pg_search', '2.3.6'
 gem 'puma', '~> 5.0'
 gem 'rack-cors'
-gem 'rails', '~> 7.0.2', '>= 7.0.2.3'
+gem 'rails', '>= 7.0.2.3'
 gem 'redis', '~> 4.8.0', require: %w[redis redis/connection/hiredis]
 gem 'roar'
 gem 'rspec'
 gem 'rswag'
+gem 'sassc'
 gem 'sentry-rails'
 gem 'sentry-ruby'
 gem 'sentry-sidekiq'
 gem 'shrine', github: 'shrinerb/shrine'
 gem 'sidekiq'
+gem 'sprockets-rails'
 gem 'trailblazer-endpoint'
 gem 'trailblazer-rails'
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]

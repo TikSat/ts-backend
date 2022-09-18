@@ -41,3 +41,5 @@ time_end = Time.now
 diff = (time_end - time_start)
 
 puts "DB seeded in #{diff} s. Listings created: #{Listing.count}"
+
+AdminUser.create!(email: 'admin@tiksat.bid', password: 'password', password_confirmation: 'password') if Rails.env.development?
