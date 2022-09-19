@@ -124,7 +124,7 @@ ActiveAdmin.setup do |config|
   # This allows your users to comment on any resource registered with Active Admin.
   #
   # You can completely disable comments:
-  # config.comments = false
+  config.comments = false
   #
   # You can change the name under which comments are registered:
   # config.comments_registration_name = 'AdminComment'
@@ -137,7 +137,7 @@ ActiveAdmin.setup do |config|
   # config.comments_menu = false
   #
   # You can customize the comment menu:
-  config.comments_menu = { parent: 'Admin', priority: 100 }
+  # config.comments_menu = { parent: 'Admin', priority: 100 }
 
   # == Batch Actions
   #
@@ -230,12 +230,13 @@ ActiveAdmin.setup do |config|
   #
   # To change the default utility navigation to show a link to your website & a logout btn
   #
-  #   config.namespace :admin do |admin|
-  #     admin.build_menu :utility_navigation do |menu|
-  #       menu.add label: "My Great Website", url: "http://www.mygreatwebsite.com", html_options: { target: :blank }
-  #       admin.add_logout_button_to_menu menu
-  #     end
-  #   end
+  config.namespace :backend do |admin|
+    admin.build_menu :default do |menu|
+      menu.add label: 'Sidekiq', url: '/backend/sidekiq', html_options: { target: :blank }, parent: 'Admin'
+      menu.add label: 'PgHero', url: '/backend/pghero', html_options: { target: :blank }, parent: 'Admin'
+      menu.add label: 'Api Docs', url: '/backend/docs', html_options: { target: :blank }, parent: 'Admin'
+    end
+  end
   #
   # If you wanted to add a static menu item to the default menu provided:
   #

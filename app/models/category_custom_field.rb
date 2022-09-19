@@ -14,4 +14,6 @@
 class CategoryCustomField < ApplicationRecord
   belongs_to :category
   belongs_to :custom_field
+
+  validates_uniqueness_of :custom_field_id, scope: :category_id
 end

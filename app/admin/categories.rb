@@ -1,6 +1,8 @@
 ActiveAdmin.register Category do
   menu priority: 1
 
+  includes(:custom_fields, :subcategories, :parent)
+
   scope :all, default: true
   scope :root
 
@@ -11,7 +13,9 @@ ActiveAdmin.register Category do
       image_tag category.image_url(:xs)
     end
     column :parent, sortable: 'c.name'
-    column :created_at
+    column :children
+    column 'Listings', :total_listings_count
+    column :custom_fields
     actions
   end
 
@@ -27,7 +31,7 @@ ActiveAdmin.register Category do
 
   controller do
     def scoped_collection
-      Category.joins('LEFT JOIN categories c ON c.id = categories.parent_id').select(:name, :parent_id, :created_at, :image_data, :slug)
+      Category.joins('LEFT JOIN categories c ON c.id = categories.parent_id')
     end
 
     def permitted_params

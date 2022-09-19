@@ -1,11 +1,17 @@
-Rails.application.routes.draw do
-  scope :backend do
-    mount Rswag::Ui::Engine => '/api/docs'
-    mount Rswag::Api::Engine => '/api/docs'
-  end
+require 'sidekiq/web'
 
+Rails.application.routes.draw do
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
+
+  scope :backend do
+    authenticate :admin_user do
+      mount Rswag::Ui::Engine => '/docs'
+      mount Rswag::Api::Engine => '/docs'
+      mount PgHero::Engine, at: '/pghero'
+      mount Sidekiq::Web, at: '/sidekiq'
+    end
+  end
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
   root 'api/categories#index'

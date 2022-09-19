@@ -25,10 +25,22 @@ class Category < ApplicationRecord
   has_many :subcategories, class_name: 'Category', foreign_key: :parent_id
   has_many :category_custom_fields
   has_many :custom_fields, through: :category_custom_fields
-  has_many :listings
+  has_many :listings, dependent: :restrict_with_error
+
+  validates :name, :slug, presence: true, uniqueness: true
 
   scope :root, -> { where(parent_id: nil) }
   scope :children, -> { where('parent_id IS NOT NULL') }
+
+  # rubocop:disable Style/RedundantSelf
+  def total_listings_count
+    subcategories.any? ? child_listings_count : self.listings_count
+  end
+  # rubocop:enable Style/RedundantSelf
+
+  def child_listings_count
+    children.pluck(:listings_count).sum
+  end
 
   def slug_candidates
     slugs = [:name]
@@ -73,6 +85,12 @@ class Category < ApplicationRecord
     end
   end
 
+  def children
+    Rails.cache.fetch("#{cache_key_with_version}/children", expires_in: 12.hours) do
+      Category.find_by_sql([children_tree_sql, category_id: id])
+    end
+  end
+
   def parents_tree_sql
     <<~SQL
       WITH RECURSIVE category_tree AS (
@@ -88,6 +106,24 @@ class Category < ApplicationRecord
       )
 
       SELECT * from category_tree
+    SQL
+  end
+
+  def children_tree_sql
+    <<~SQL
+      WITH RECURSIVE category_tree AS (
+        SELECT *
+        FROM categories
+        WHERE categories.id = :category_id
+
+        UNION ALL
+
+        SELECT categories.*
+        FROM categories, category_tree
+        WHERE categories.parent_id = category_tree.id
+      )
+
+      SELECT * from category_tree WHERE category_tree.id != :category_id
     SQL
   end
 end
