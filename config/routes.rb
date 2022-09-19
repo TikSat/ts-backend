@@ -13,9 +13,6 @@ Rails.application.routes.draw do
     end
   end
 
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
-  root 'api/categories#index'
-
   namespace :api, defaults: { format: 'json' } do
     resources :categories, only: %i[index show] do
       get :breadcrumbs

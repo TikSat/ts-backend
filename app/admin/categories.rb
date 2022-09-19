@@ -10,7 +10,7 @@ ActiveAdmin.register Category do
     selectable_column
     column :name, sortable: :name
     column :image do |category|
-      image_tag category.image_url(:xs)
+      image_tag category.image_url(:xs) if category.image.present?
     end
     column :parent, sortable: 'c.name'
     column :children

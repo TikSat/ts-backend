@@ -22,7 +22,7 @@ class Category < ApplicationRecord
   friendly_id :slug_candidates, use: :slugged
 
   belongs_to :parent, class_name: 'Category', optional: true
-  has_many :subcategories, class_name: 'Category', foreign_key: :parent_id
+  has_many :subcategories, class_name: 'Category', foreign_key: :parent_id, dependent: :restrict_with_error
   has_many :category_custom_fields
   has_many :custom_fields, through: :category_custom_fields
   has_many :listings, dependent: :restrict_with_error
