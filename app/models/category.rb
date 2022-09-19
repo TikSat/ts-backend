@@ -87,7 +87,7 @@ class Category < ApplicationRecord
 
   def children
     Rails.cache.fetch("#{cache_key_with_version}/children", expires_in: 12.hours) do
-      Category.find_by_sql([children_tree_sql, category_id: id])
+      Category.find_by_sql([children_tree_sql, { category_id: id }])
     end
   end
 
