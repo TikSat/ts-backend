@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::Base
+  skip_before_action :verify_authenticity_token # TODO: find a way to make this work
   DEFAULT_ACTIONS = %i[index show create update destroy].freeze
 
   include TrbContext
