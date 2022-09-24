@@ -13,6 +13,8 @@ Rails.application.routes.draw do
     end
   end
 
+  root 'welcome#index'
+
   namespace :api, defaults: { format: 'json' } do
     resources :categories, only: %i[index show] do
       get :breadcrumbs

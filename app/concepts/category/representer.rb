@@ -9,7 +9,7 @@ class Category::Representer < Base::Representer
   property :image_small, getter: ->(represented:, **) { represented.image_url(:sm) }
   property :image_medium, getter: ->(represented:, **) { represented.image_url(:md) }
   property :image_large, getter: ->(represented:, **) { represented.image_url(:lg) }
-  property :listings_count
+  property :listings_count, getter: ->(represented:, **) { represented.total_listings_count }
 
   collection :subcategories, decorator: Category::Representer
   collection :custom_fields, decorator: CustomField::Representer

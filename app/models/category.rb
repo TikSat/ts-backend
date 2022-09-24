@@ -48,6 +48,7 @@ class Category < ApplicationRecord
     slugs
   end
 
+  # TODO: move to fetcher class
   # self custom fields + parents custom fields
   def all_custom_fields
     query =
