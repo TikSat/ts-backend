@@ -5,6 +5,7 @@ class Api::ListingsController < ApplicationController
   _endpoint :update, Listing::Operation::Update
   _endpoint :destroy, Listing::Operation::Destroy
   _endpoint :recommended, Listing::Fetch::Recommended
+  _endpoint :autocomplete, Listing::Fetch::Autocomplete
 
   def controller_representer
     Listing::Representer
@@ -18,6 +19,12 @@ class Api::ListingsController < ApplicationController
 
   def ids
     render json: Listing.where(category_id: params[:category_id]).ids
+  end
+
+  def autocomplete
+    endpoint :autocomplete, pagination: true,
+                            skip_auth: true,
+                            representer: controller_representer
   end
 
   def public_actions

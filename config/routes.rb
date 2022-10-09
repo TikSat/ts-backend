@@ -30,6 +30,7 @@ Rails.application.routes.draw do
     resources :listings, only: %i[create update destroy] do
       collection do
         get :recommended
+        get :autocomplete
       end
     end
 

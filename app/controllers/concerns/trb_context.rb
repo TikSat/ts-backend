@@ -51,12 +51,12 @@ module TrbContext
       nctx = ctx[:endpoint_ctx]
       params = ctx[:params]
       pagy_headers_merge(nctx[:pagy]) if nctx[:pagy]
-      render json: nctx[:representer].to_response(params[:response]), status: ctx[:status]
+      render json: nctx[:representer].to_response(params[:response]&.deep_symbolize_keys), status: ctx[:status]
     end
 
     def error_render(ctx)
       Rails.logger.debug 'Failure rendering'
-      render json: ctx[:representer].to_response(params[:response]), status: ctx[:status]
+      render json: ctx[:representer].to_response(params[:response]&.deep_symbolize_keys), status: ctx[:status]
     end
   end
 end
