@@ -10,8 +10,9 @@ ActiveAdmin.register Category do
     selectable_column
     column :name, sortable: :name
     column :image do |category|
-      image_tag category.image_url(:xs) if category.image.present?
-    end
+      # image_tag category.image_url(:xs) if category.image.present?
+      image_tag(category.image_url, size: "60x60") if category.image.present?
+       end
     column :parent, sortable: 'c.name'
     column :children
     column 'Listings', :total_listings_count
