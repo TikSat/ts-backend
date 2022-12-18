@@ -4,9 +4,9 @@ ActiveAdmin.register Listing do
   index do
     selectable_column
     column :category
-    column :author
-    column :title
-    column :description
+    # column :author
+    # column :title
+    # column :description
     actions
   end
 
