@@ -27,7 +27,7 @@ gem 'pghero'
 gem 'pg_search', '2.3.6'
 gem 'puma', '~> 5.0'
 gem 'rack-cors'
-gem 'rails', '>= 7.0.2.3'
+gem 'rails', '>= 7.0.4'
 gem 'redis', '~> 4.8.0', require: %w[redis redis/connection/hiredis]
 gem 'roar'
 gem 'rspec'
