@@ -1,4 +1,4 @@
-FROM ruby:3.1.2-slim
+FROM ruby:3.1.4-slim
 
 ENV TZ Etc/UTC
 ENV LANG ru_RU.UTF-8
