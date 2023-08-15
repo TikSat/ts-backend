@@ -52,7 +52,7 @@ end
 
 group :test do
   gem 'rspec-rails'
-  gem 'rspec-sidekiq'
+  gem 'rspec-sidekiq', '>= 4.0.0'
   gem 'shoulda-matchers'
   gem 'simplecov'
   gem 'test-prof'
