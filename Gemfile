@@ -25,7 +25,7 @@ gem 'pagy'
 gem 'pg', '~> 1.1'
 gem 'pghero'
 gem 'pg_search', '2.3.6'
-gem 'puma', '~> 5.0'
+gem 'puma', '~> 5.6', '>= 5.6.7'
 gem 'rack-cors'
 gem 'rails', '>= 7.0.2.3'
 gem 'redis', '~> 4.8.0', require: %w[redis redis/connection/hiredis]
