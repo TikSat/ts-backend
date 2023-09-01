@@ -12,7 +12,7 @@ gem 'bootsnap', require: false
 gem 'devise'
 gem 'dotenv'
 gem 'dry-validation'
-gem 'factory_bot' # move it to dev group after release
+gem 'factory_bot' , '>= 6.3.0' # move it to dev group after release
 gem 'faker' # move it to dev group after release
 gem 'fastimage'
 gem 'foreman'

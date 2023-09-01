@@ -115,7 +115,7 @@ GEM
     bootsnap (1.13.0)
       msgpack (~> 1.2)
     builder (3.2.4)
-    concurrent-ruby (1.1.10)
+    concurrent-ruby (1.2.2)
     connection_pool (2.3.0)
     content_disposition (1.0.0)
     crass (1.0.6)
@@ -167,7 +167,7 @@ GEM
       dry-initializer (~> 3.0)
       dry-schema (~> 1.8, >= 1.8.0)
     erubi (1.11.0)
-    factory_bot (6.2.1)
+    factory_bot (6.3.0)
       activesupport (>= 5.0.0)
     faker (2.23.0)
       i18n (>= 1.8.11, < 2)
@@ -187,7 +187,7 @@ GEM
     hashie (5.0.0)
     hirb (0.7.3)
     hiredis (0.6.3)
-    i18n (1.12.0)
+    i18n (1.14.1)
       concurrent-ruby (~> 1.0)
     image_processing (1.12.2)
       mini_magick (>= 4.9.5, < 5)
@@ -227,7 +227,7 @@ GEM
     method_source (1.0.0)
     mini_magick (4.11.0)
     mini_mime (1.1.2)
-    minitest (5.16.3)
+    minitest (5.19.0)
     msgpack (1.5.6)
     multi_json (1.15.0)
     net-imap (0.2.3)
@@ -444,7 +444,7 @@ GEM
     trailblazer-rails (2.4.3)
       railties (>= 5.2.0)
       trailblazer (>= 2.1.0, < 2.2.0)
-    tzinfo (2.0.5)
+    tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
     uber (0.1.0)
     unicode-display_width (2.3.0)
@@ -472,7 +472,7 @@ DEPENDENCIES
   devise
   dotenv
   dry-validation
-  factory_bot
+  factory_bot (>= 6.3.0)
   faker
   fastimage
   foreman
@@ -517,4 +517,4 @@ RUBY VERSION
    ruby 3.1.2p20
 
 BUNDLED WITH
-   2.3.10
+   2.3.26
