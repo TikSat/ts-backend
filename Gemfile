@@ -31,7 +31,7 @@ gem 'rails', '>= 7.0.2.3'
 gem 'redis', '~> 4.8.0', require: %w[redis redis/connection/hiredis]
 gem 'roar'
 gem 'rspec'
-gem 'rswag'
+gem 'rswag', '>= 2.11.0'
 gem 'sassc'
 gem 'sentry-rails'
 gem 'sentry-ruby'
