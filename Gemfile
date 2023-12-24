@@ -3,7 +3,7 @@ ruby '3.1.2'
 
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-gem 'activeadmin'
+gem 'activeadmin', '>= 3.2.0'
 gem 'active_admin_theme'
 gem 'api_guard'
 gem 'aws-sdk-s3'
