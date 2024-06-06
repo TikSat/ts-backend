@@ -38,7 +38,7 @@ gem 'sentry-ruby'
 gem 'sentry-sidekiq'
 gem 'shrine', github: 'shrinerb/shrine'
 gem 'sidekiq'
-gem 'sprockets-rails'
+gem 'sprockets-rails', '>= 3.5.0'
 gem 'trailblazer-endpoint'
 gem 'trailblazer-rails'
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
