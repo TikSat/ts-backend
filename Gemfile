@@ -40,7 +40,7 @@ gem 'shrine', github: 'shrinerb/shrine'
 gem 'sidekiq'
 gem 'sprockets-rails'
 gem 'trailblazer-endpoint'
-gem 'trailblazer-rails'
+gem 'trailblazer-rails', '>= 2.4.4'
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 
 group :development, :test do
