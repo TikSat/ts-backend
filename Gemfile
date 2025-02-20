@@ -46,8 +46,8 @@ gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 group :development, :test do
   gem 'annotate'
   gem 'rubocop'
-  gem 'rubocop-performance', require: false
-  gem 'rubocop-rspec'
+  gem 'rubocop-performance', '>= 1.24.0', require: false
+  gem 'rubocop-rspec', '>= 3.5.0'
 end
 
 group :test do
