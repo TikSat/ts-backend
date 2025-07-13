@@ -3,20 +3,20 @@ ruby '3.1.2'
 
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-gem 'activeadmin'
+gem 'activeadmin', '>= 3.1.0'
 gem 'active_admin_theme'
 gem 'api_guard'
 gem 'aws-sdk-s3'
 gem 'bcrypt'
 gem 'bootsnap', require: false
-gem 'devise'
+gem 'devise', '>= 4.9.0'
 gem 'dotenv'
 gem 'dry-validation'
-gem 'factory_bot' # move it to dev group after release
+gem 'factory_bot' , '>= 6.3.0' # move it to dev group after release
 gem 'faker' # move it to dev group after release
 gem 'fastimage'
 gem 'foreman'
-gem 'friendly_id'
+gem 'friendly_id', '>= 5.5.0'
 gem 'hiredis'
 gem 'image_processing', '~> 1.8'
 gem 'jwt'
@@ -24,23 +24,23 @@ gem 'multi_json'
 gem 'pagy'
 gem 'pg', '~> 1.1'
 gem 'pghero'
-gem 'pg_search', '2.3.6'
+gem 'pg_search', '2.3.7'
 gem 'puma', '~> 5.0'
-gem 'rack-cors'
-gem 'rails', '>= 7.0.2.3'
+gem 'rack-cors', '>= 2.0.0'
+gem 'rails', '>= 7.1.0'
 gem 'redis', '~> 4.8.0', require: %w[redis redis/connection/hiredis]
 gem 'roar'
 gem 'rspec'
-gem 'rswag'
+gem 'rswag', '>= 2.11.0'
 gem 'sassc'
-gem 'sentry-rails'
+gem 'sentry-rails', '>= 5.5.0'
 gem 'sentry-ruby'
-gem 'sentry-sidekiq'
+gem 'sentry-sidekiq', '>= 5.5.0'
 gem 'shrine', github: 'shrinerb/shrine'
-gem 'sidekiq'
-gem 'sprockets-rails'
+gem 'sidekiq', '>= 6.5.8'
+gem 'sprockets-rails', '>= 3.5.0'
 gem 'trailblazer-endpoint'
-gem 'trailblazer-rails'
+gem 'trailblazer-rails', '>= 2.4.4'
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 
 group :development, :test do
@@ -51,9 +51,9 @@ group :development, :test do
 end
 
 group :test do
-  gem 'rspec-rails'
-  gem 'rspec-sidekiq'
-  gem 'shoulda-matchers'
+  gem 'rspec-rails', '>= 6.0.0'
+  gem 'rspec-sidekiq', '>= 4.0.0'
+  gem 'shoulda-matchers', '>= 5.3.0'
   gem 'simplecov'
   gem 'test-prof'
   gem 'timecop'
